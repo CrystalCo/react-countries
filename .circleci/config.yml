@@ -35,7 +35,7 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
-      #- run: sudo pip install awscli
+      - run: pip install awscli
 
       # Deploy to S3
       - run: aws s3 sync build/ s3://petreski-react-countries
