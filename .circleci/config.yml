@@ -1,22 +1,3 @@
-dependencies:
-    override:
-        - sudo pip install awscli
-deployment:
-  prod:
-    branch: master
-    commands:
-      - npm run build
-      - aws s3 sync build/ s3://petreski-react-countries
-      - aws cloudfront create-invalidation --distribution-id=E2F18KNA2IIS8J --paths /
-
-
-
-
-
-
-
-
-
 # Javascript Node CircleCI 2.0 configuration file
 #
 # Check https://circleci.com/docs/2.0/language-javascript/ for more details
@@ -51,6 +32,8 @@ jobs:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
+
+      - run: sudo pip install awscli
 
       # Deploy to S3
       - run: aws s3 sync build/ s3://petreski-react-countries
