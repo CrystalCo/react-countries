@@ -35,7 +35,7 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
-      - run: sudo apt-get update && apt-get install -y awscli
+      - run: sudo apt-get -y -qq install awscli
 
       # Deploy to S3
       - run: aws s3 sync build/ s3://petreski-react-countries
