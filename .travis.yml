@@ -3,13 +3,14 @@ node_js:
   - "node"
   - "8"
 cache:
+  pip: true
   directories:
     - "node_modules"
 
 install:
   # Install any dependencies required for building your site here.
   # `awscli` is required for invalidation of CloudFront distributions.
-  - pip install awscli
+  - pip install --upgrade pip awscli
 script:
   # Build your site (e.g., HTML, CSS, JS) here.
   - npm run build
@@ -36,9 +37,3 @@ after_deploy:
   - aws configure set preview.cloudfront true
   # Invalidate every object in the targeted distribution.
   - aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DISTRIBUTION_ID --paths "/*"
-
-
-
-
-
-#cache: pip
