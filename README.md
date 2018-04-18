@@ -1,6 +1,4 @@
-## React Countries
-
-[![Build Status](https://travis-ci.org/vpetreski/react-countries.svg?branch=master)](https://travis-ci.org/vpetreski/react-countries)
+# [React Countries](http://rc.vanja.ws) &middot; [![Build Status](https://travis-ci.org/vpetreski/react-countries.svg?branch=master)](https://travis-ci.org/vpetreski/react-countries)
 
 This is small application that serves as a playground for my React learning purposes.
 
