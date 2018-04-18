@@ -11,6 +11,10 @@
     right: 0;
 }
 
+.github-corner-path {
+    transform-origin: 130px 106px;
+}
+
 @keyframes octocat-wave {
     0%, 100% {
         transform: rotate(0)
