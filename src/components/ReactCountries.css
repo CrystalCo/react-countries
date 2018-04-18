@@ -5,3 +5,13 @@
     margin: auto;
     padding: 5px;
 }
+
+.RC-toolbar {
+    position: relative;
+}
+
+.globe {
+    position: absolute;
+    right: -38px;
+    top: 36px;
+}
