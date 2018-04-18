@@ -11,7 +11,7 @@ class App extends Component {
                     <h1 className="App-title">Welcome to React Countries</h1>
                 </header>
                 <p className="App-intro">
-                    Coming soon..
+                    Coming soon.. XXX
                 </p>
 
                 {/*TODO - move this as a components*/}
