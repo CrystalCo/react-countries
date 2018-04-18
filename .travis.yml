@@ -1,15 +1,22 @@
-#sudo: required
+sudo: required
+
 language: node_js
+
 node_js:
   - "node"
   - "8"
+
 cache:
   directories:
     - "node_modules"
 
+branches:
+  only:
+  - master
+
 install:
-  - pip install awscli
-  - npm install react-scripts
+  - sudo pip install awscli
+  #- npm install react-scripts
 script:
   - npm run build
   - aws s3 sync build/ s3://petreski-react-countries
