@@ -8,7 +8,7 @@ Idea is to practice React basics, components and best practices, integration wit
 
 [Here](https://github.com/vpetreski/react-countries/projects/2) you can see Kanban board and current tasks.
 
-Application is deployed on AWS using S3, CloudFront and custom (sub)domain name. Check it out [HERE](http://rc.vanja.ws).
+Application is deployed on AWS using S3, CloudFront and custom (sub)domain name. Check it out [here](http://rc.vanja.ws).
 
 Project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
