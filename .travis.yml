@@ -1,17 +1,17 @@
-sudo: required
+#sudo: required
 language: node_js
 node_js:
   - "node"
   - "8"
 cache:
-  pip: true
+  #pip: true
   directories:
     - "node_modules"
 
 install:
-  - sudo pip install awscli
-  - npm install react-scripts
+  #- sudo pip install awscli
+  #- npm install react-scripts
 script:
   - npm run build
-  - npm run build aws s3 sync build/ s3://petreski-react-countries
+  - aws s3 sync build/ s3://petreski-react-countries
   - aws cloudfront create-invalidation --distribution-id=E2F18KNA2IIS8J --paths /
