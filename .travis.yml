@@ -14,10 +14,9 @@ branches:
   only:
   - master
 
-install:
-  - sudo pip install awscli
-  #- npm install react-scripts
 script:
+  - sudo pip install awscli
+  - npm install
   - npm run build
-  - aws s3 sync build/ s3://petreski-react-countries
+  - aws s3 sync build/ s3://petreski-react-countries --delete
   - aws cloudfront create-invalidation --distribution-id=E2F18KNA2IIS8J --paths /
