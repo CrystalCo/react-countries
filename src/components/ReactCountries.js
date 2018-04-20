@@ -12,15 +12,21 @@ import List, {ListItem, ListItemText, ListItemSecondaryAction} from 'material-ui
 import Checkbox from 'material-ui/Checkbox';
 import Divider from 'material-ui/Divider';
 import findIndex from 'lodash/findIndex'
+import remove from 'lodash/remove'
 
 class RcRow extends React.Component {
     constructor(props) {
         super(props);
         this.handleCountryVisitedChange = this.handleCountryVisitedChange.bind(this);
+        this.handleCountryDeleted = this.handleCountryDeleted.bind(this);
     }
 
     handleCountryVisitedChange(countryCode, e) {
         this.props.onCountryVisitedChange(countryCode, e.target.checked);
+    }
+
+    handleCountryDeleted(countryCode) {
+        this.props.onCountryDeleted(countryCode);
     }
 
     render() {
@@ -36,7 +42,7 @@ class RcRow extends React.Component {
                         <Tooltip title="Visited" placement="left">
                             <Checkbox checked={country.visited} onChange={(e) => this.handleCountryVisitedChange(country.code, e)}/>
                         </Tooltip>
-                        <IconButton color="secondary">
+                        <IconButton color="secondary" onClick={(e) => this.handleCountryDeleted(country.code)}>
                             <Icon>delete</Icon>
                         </IconButton>
                     </ListItemSecondaryAction>
@@ -55,7 +61,7 @@ class RcList extends React.Component {
         this.props.countries.forEach((country) => {
             if (country.visited || !onlyVisited) {
                 rows.push(
-                    <RcRow country={country} key={country.code} onCountryVisitedChange={this.props.onCountryVisitedChange}/>
+                    <RcRow country={country} key={country.code} onCountryVisitedChange={this.props.onCountryVisitedChange} onCountryDeleted={this.props.onCountryDeleted}/>
                 );
             }
         });
@@ -114,7 +120,7 @@ class ReactCountries extends Component {
 
         this.handleOnlyVisitedChange = this.handleOnlyVisitedChange.bind(this);
         this.handleCountryVisitedChange = this.handleCountryVisitedChange.bind(this);
-
+        this.handleCountryDeleted = this.handleCountryDeleted.bind(this);
     }
 
     componentDidMount() {
@@ -142,12 +148,20 @@ class ReactCountries extends Component {
         });
     }
 
+    handleCountryDeleted(countryCode) {
+        this.setState((prevState, props) => {
+            let newState = {countries: [...prevState.countries]};
+            remove(newState.countries, (country) => country.code === countryCode);
+            return newState;
+        });
+    }
+
     render() {
         return (
             <Paper className="RC" elevation={4}>
                 <RotatingEarth/>
                 <RcToolbar onlyVisited={this.state.onlyVisited} onOnlyVisitedChange={this.handleOnlyVisitedChange}/>
-                <RcList countries={this.state.countries} onlyVisited={this.state.onlyVisited} onCountryVisitedChange={this.handleCountryVisitedChange}/>
+                <RcList countries={this.state.countries} onlyVisited={this.state.onlyVisited} onCountryVisitedChange={this.handleCountryVisitedChange} onCountryDeleted={this.handleCountryDeleted}/>
             </Paper>
         );
     }
