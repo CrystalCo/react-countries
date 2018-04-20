@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import './ReactCountries.css';
 import Button from 'material-ui/Button';
 import './RotatingEarth';
@@ -12,84 +12,93 @@ import List, {ListItem, ListItemText, ListItemSecondaryAction} from 'material-ui
 import Checkbox from 'material-ui/Checkbox';
 import Divider from 'material-ui/Divider';
 
+class RcRow extends React.Component {
+    render() {
+        const country = this.props.country;
+
+        return (
+            <Fragment>
+                <ListItem>
+                    <img src={`https://restcountries.eu/data/${country.code}.svg`} alt={country.code} className="RC-flag"/>
+                    <ListItemText primary={country.name} secondary={country.capital}/>
+                    <ListItemSecondaryAction>
+                        <Tooltip title="Visited" placement="left">
+                            <Checkbox checked={country.visited}/>
+                        </Tooltip>
+                        <IconButton color="secondary">
+                            <Icon>delete</Icon>
+                        </IconButton>
+                    </ListItemSecondaryAction>
+                </ListItem>
+                <Divider/>
+            </Fragment>
+        );
+    }
+}
+
+class RcList extends React.Component {
+    render() {
+        const rows = [];
+
+        this.props.countries.forEach((country) => {
+            rows.push(
+                <RcRow country={country} key={country.code}/>
+            );
+        });
+
+        return (
+            <Paper elevation={1}>
+                <List className="RC-list">
+                    {rows}
+                </List>
+            </Paper>
+        );
+    }
+}
+
+class RcToolbar extends React.Component {
+    render() {
+        return (
+            <div className="RC-toolbar">
+                <Tooltip title="Add Country" placement="bottom">
+                    <Button mini="small" variant="fab" color="primary">
+                        <Icon>add</Icon>
+                    </Button>
+                </Tooltip>
+                <Tooltip title="Only Visited" placement="bottom">
+                    <Switch
+                        /*checked={this.state.checkedB}
+                        onChange={this.handleChange('checkedB')}
+                        value="checkedB"*/
+                        color="secondary"
+                    />
+                </Tooltip>
+                <Tooltip title="Show Map" placement="bottom">
+                    <IconButton color="secondary">
+                        <Icon>map</Icon>
+                    </IconButton>
+                </Tooltip>
+            </div>
+        );
+    }
+}
+
 class ReactCountries extends Component {
     render() {
         return (
             <Paper className="RC" elevation={4}>
                 <RotatingEarth/>
-
-                <div className="RC-toolbar">
-                    <Tooltip title="Add Country" placement="bottom">
-                        <Button mini="small" variant="fab" color="primary">
-                            <Icon>add</Icon>
-                        </Button>
-                    </Tooltip>
-                    <Tooltip title="Only Visited" placement="bottom">
-                        <Switch
-                            /*checked={this.state.checkedB}
-                            onChange={this.handleChange('checkedB')}
-                            value="checkedB"*/
-                            color="secondary"
-                        />
-                    </Tooltip>
-                    <Tooltip title="Show Map" placement="bottom">
-                        <IconButton color="secondary">
-                            <Icon>map</Icon>
-                        </IconButton>
-                    </Tooltip>
-                </div>
-
-                <Paper elevation={1}>
-                    <List className="RC-list">
-                        <ListItem>
-                            <img src="https://restcountries.eu/data/col.svg" alt=""
-                                 style={{width: "50px", height: "9%"}}/>
-                            <ListItemText primary="Colombia" secondary="Bogota"/>
-                            <ListItemSecondaryAction>
-                                <Tooltip title="Visited" placement="left">
-                                    <Checkbox/>
-                                </Tooltip>
-                                <IconButton color="secondary">
-                                    <Icon>delete</Icon>
-                                </IconButton>
-                            </ListItemSecondaryAction>
-                        </ListItem>
-                        <Divider />
-                        <ListItem>
-                            <img src="https://restcountries.eu/data/bra.svg" alt=""
-                                 style={{width: "50px", height: "33px"}}/>
-                            <ListItemText primary="Brazil" secondary="Brasília"/>
-                            <ListItemSecondaryAction>
-                                <Tooltip title="Visited" placement="left">
-                                    <Checkbox/>
-                                </Tooltip>
-                                <IconButton color="secondary">
-                                    <Icon>delete</Icon>
-                                </IconButton>
-                            </ListItemSecondaryAction>
-                        </ListItem>
-                        <Divider />
-                        <ListItem>
-                            <img src="https://restcountries.eu/data/srb.svg" alt=""
-                                 style={{width: "50px", height: "9%"}}/>
-                            <ListItemText primary="Serbia" secondary="Belgrade"/>
-                            <ListItemSecondaryAction>
-                                <Tooltip title="Visited" placement="left">
-                                    <Checkbox/>
-                                </Tooltip>
-                                <IconButton color="secondary">
-                                    <Icon>delete</Icon>
-                                </IconButton>
-                            </ListItemSecondaryAction>
-                        </ListItem>
-                        <Divider />
-                    </List>
-                </Paper>
-
-
+                <RcToolbar/>
+                <RcList countries={COUNTRIES}/>
             </Paper>
         );
     }
 }
+
+const COUNTRIES = [
+    {code: 'bra', name: 'Brazil', capital: 'Brazilia', visited: false},
+    {code: 'col', name: 'Colombia', capital: 'Bogota', visited: true},
+    {code: 'srb', name: 'Serbia', capital: 'Belgrade', visited: false}
+];
 
 export default ReactCountries;

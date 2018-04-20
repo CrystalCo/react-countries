@@ -16,6 +16,11 @@
     overflow: scroll;
 }
 
+.RC-flag {
+    width: 50px;
+    height: 33px;
+}
+
 .globe {
     position: absolute;
     right: -26px;
