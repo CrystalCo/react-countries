@@ -12,9 +12,11 @@ import List, {ListItem, ListItemSecondaryAction, ListItemText} from 'material-ui
 import Checkbox from 'material-ui/Checkbox';
 import Divider from 'material-ui/Divider';
 import findIndex from 'lodash/findIndex'
+import sortedIndexBy from 'lodash/sortedIndexBy'
 import remove from 'lodash/remove'
 import Dialog, {DialogActions, DialogContent, DialogTitle} from 'material-ui/Dialog';
 import ReactSelect from './ReactSelect'
+import CountryUtil from '../utils/CountryUtil'
 
 class RcAddCountryDialog extends React.Component {
     render() {
@@ -23,7 +25,7 @@ class RcAddCountryDialog extends React.Component {
                 <Dialog open={this.props.open} onClose={this.props.onDialogClose} fullWidth={true}>
                     <DialogTitle id="form-dialog-title">Add Country</DialogTitle>
                     <DialogContent>
-                        <ReactSelect suggestions={suggestions} placeholder="Search a country" value={this.props.countryToAdd} onChange={this.props.onCountryToAddChanged}/>
+                        <ReactSelect suggestions={this.props.suggestions} placeholder="Search a country" value={this.props.countryToAdd} onChange={this.props.onCountryToAddChanged}/>
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={this.props.onDialogClose} color="primary">Cancel</Button>
@@ -135,6 +137,8 @@ class ReactCountries extends Component {
         super(props);
         this.state = {
             countries: [],
+            allCountries: [],
+            countrySuggestions: [],
             onlyVisited: false,
             addCountryDialogOpened: false,
             countryToAdd: ''
@@ -158,6 +162,18 @@ class ReactCountries extends Component {
                 {code: 'srb', name: 'Serbia', capital: 'Belgrade', visited: false}
             ]
         });
+
+        CountryUtil.getAllCountries().then(
+            allCountriesJson =>
+                this.setState({
+                    allCountries: allCountriesJson,
+                    countrySuggestions: allCountriesJson.map(country => ({
+                        value: country.alpha3Code,
+                        label: country.name
+                    }))
+                }),
+            error => console.error(error)
+        );
     }
 
     handleOnlyVisitedChange(onlyVisited) {
@@ -202,10 +218,16 @@ class ReactCountries extends Component {
     }
 
     handleAddCountry() {
-        console.log("Country to add: " + this.state.countryToAdd);
-
         if (this.state.countryToAdd) {
-            // TODO
+            if (findIndex(this.state.countries, {'code': this.state.countryToAdd}) === -1) {
+                this.setState((prevState, props) => {
+                    let c = prevState.allCountries[findIndex(prevState.allCountries, {'alpha3Code': prevState.countryToAdd})];
+                    let newCountry = {code: c.alpha3Code.toLowerCase(), name: c.name, capital: c.capital, visited: false};
+                    let newCountries = [...prevState.countries];
+                    newCountries.splice(sortedIndexBy(newCountries, newCountry, 'name'), 0, newCountry);
+                    return {countries: newCountries};
+                });
+            }
 
             this.handleCloseAddCountryDialog();
         }
@@ -217,50 +239,10 @@ class ReactCountries extends Component {
                 <RotatingEarth/>
                 <RcToolbar onlyVisited={this.state.onlyVisited} onOnlyVisitedChange={this.handleOnlyVisitedChange} onDialogOpen={this.handleOpenAddCountryDialog}/>
                 <RcList countries={this.state.countries} onlyVisited={this.state.onlyVisited} onCountryVisitedChange={this.handleCountryVisitedChange} onCountryDeleted={this.handleCountryDeleted}/>
-                <RcAddCountryDialog open={this.state.addCountryDialogOpened} onDialogClose={this.handleCloseAddCountryDialog} countryToAdd={this.state.countryToAdd} onCountryToAddChanged={this.handleCountryToAddChanged} onCountryAdd={this.handleAddCountry}/>
+                <RcAddCountryDialog open={this.state.addCountryDialogOpened} suggestions={this.state.countrySuggestions} onDialogClose={this.handleCloseAddCountryDialog} countryToAdd={this.state.countryToAdd} onCountryToAddChanged={this.handleCountryToAddChanged} onCountryAdd={this.handleAddCountry}/>
             </Paper>
         );
     }
 }
-
-const suggestions = [
-    {label: "Afghanistan"},
-    {label: "Aland Islands"},
-    {label: "Albania"},
-    {label: "Algeria"},
-    {label: "American Samoa"},
-    {label: "Andorra"},
-    {label: "Angola"},
-    {label: "Anguilla"},
-    {label: "Antarctica"},
-    {label: "Antigua and Barbuda"},
-    {label: "Argentina"},
-    {label: "Armenia"},
-    {label: "Aruba"},
-    {label: "Australia"},
-    {label: "Austria"},
-    {label: "Azerbaijan"},
-    {label: "Bahamas"},
-    {label: "Bahrain"},
-    {label: "Bangladesh"},
-    {label: "Barbados"},
-    {label: "Belarus"},
-    {label: "Belgium"},
-    {label: "Belize"},
-    {label: "Benin"},
-    {label: "Bermuda"},
-    {label: "Bhutan"},
-    {label: "Bolivia, Plurinational State of"},
-    {label: "Bonaire, Sint Eustatius and Saba"},
-    {label: "Bosnia and Herzegovina"},
-    {label: "Botswana"},
-    {label: "Bouvet Island"},
-    {label: "Brazil"},
-    {label: "British Indian Ocean Territory"},
-    {label: "Brunei Darussalam"}
-].map(suggestion => ({
-    value: suggestion.label, // TODO code
-    label: suggestion.label
-}));
 
 export default ReactCountries;
