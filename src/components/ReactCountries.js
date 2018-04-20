@@ -60,6 +60,16 @@ class RcList extends React.Component {
 }
 
 class RcToolbar extends React.Component {
+    constructor(props) {
+        super(props);
+        this.handleOnlyVisitedChange = this.handleOnlyVisitedChange.bind(this);
+    }
+
+    handleOnlyVisitedChange(e) {
+        //this.props.onlyVisited(e.target.value);
+        this.props.onOnlyVisitedChange(e.target.checked);
+    }
+
     render() {
         const onlyVisited = this.props.onlyVisited;
 
@@ -73,8 +83,7 @@ class RcToolbar extends React.Component {
                 <Tooltip title="Only Visited" placement="bottom">
                     <Switch
                         checked={onlyVisited}
-                        /*onChange={this.handleChange('checkedB')}
-                        value="checkedB"*/
+                        onChange={this.handleOnlyVisitedChange}
                         color="secondary"
                     />
                 </Tooltip>
@@ -95,6 +104,9 @@ class ReactCountries extends Component {
             countries: [],
             onlyVisited: false
         };
+
+        this.handleOnlyVisitedChange = this.handleOnlyVisitedChange.bind(this);
+
     }
 
     componentDidMount() {
@@ -108,11 +120,17 @@ class ReactCountries extends Component {
         });
     }
 
+    handleOnlyVisitedChange(onlyVisited) {
+        this.setState({
+            onlyVisited: onlyVisited
+        })
+    }
+
     render() {
         return (
             <Paper className="RC" elevation={4}>
                 <RotatingEarth/>
-                <RcToolbar onlyVisited={this.state.onlyVisited}/>
+                <RcToolbar onlyVisited={this.state.onlyVisited} onOnlyVisitedChange={this.handleOnlyVisitedChange}/>
                 <RcList countries={this.state.countries} onlyVisited={this.state.onlyVisited}/>
             </Paper>
         );
