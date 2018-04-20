@@ -8,11 +8,32 @@ import Paper from 'material-ui/Paper';
 import Switch from 'material-ui/Switch';
 import IconButton from 'material-ui/IconButton';
 import Tooltip from 'material-ui/Tooltip';
-import List, {ListItem, ListItemText, ListItemSecondaryAction} from 'material-ui/List';
+import List, {ListItem, ListItemSecondaryAction, ListItemText} from 'material-ui/List';
 import Checkbox from 'material-ui/Checkbox';
 import Divider from 'material-ui/Divider';
 import findIndex from 'lodash/findIndex'
 import remove from 'lodash/remove'
+import Dialog, {DialogActions, DialogContent, DialogTitle} from 'material-ui/Dialog';
+import IntegrationReactSelect from './IntegrationReactSelect'
+
+class RcAddCountryDialog extends React.Component {
+    render() {
+        return (
+            <div>
+                <Dialog open={this.props.open} onClose={this.props.onDialogClose} fullWidth={true}>
+                    <DialogTitle id="form-dialog-title">Add Country</DialogTitle>
+                    <DialogContent>
+                        <IntegrationReactSelect/>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={this.props.onDialogClose} color="primary">Cancel</Button>
+                        <Button onClick={this.props.onDialogClose} color="primary">Add</Button>
+                    </DialogActions>
+                </Dialog>
+            </div>
+        );
+    }
+}
 
 class RcRow extends React.Component {
     constructor(props) {
@@ -35,8 +56,7 @@ class RcRow extends React.Component {
         return (
             <Fragment>
                 <ListItem>
-                    <img src={`https://restcountries.eu/data/${country.code}.svg`} alt={country.code}
-                         className="RC-flag"/>
+                    <img src={`https://restcountries.eu/data/${country.code}.svg`} alt={country.code} className="RC-flag"/>
                     <ListItemText primary={country.name} secondary={country.capital}/>
                     <ListItemSecondaryAction>
                         <Tooltip title="Visited" placement="left">
@@ -93,7 +113,7 @@ class RcToolbar extends React.Component {
         return (
             <div className="RC-toolbar">
                 <Tooltip title="Add Country" placement="bottom">
-                    <Button mini={true} variant="fab" color="primary">
+                    <Button mini={true} variant="fab" color="primary" onClick={this.props.onDialogOpen}>
                         <Icon>add</Icon>
                     </Button>
                 </Tooltip>
@@ -115,12 +135,15 @@ class ReactCountries extends Component {
         super(props);
         this.state = {
             countries: [],
-            onlyVisited: false
+            onlyVisited: false,
+            addCountryDialogOpened: false
         };
 
         this.handleOnlyVisitedChange = this.handleOnlyVisitedChange.bind(this);
         this.handleCountryVisitedChange = this.handleCountryVisitedChange.bind(this);
         this.handleCountryDeleted = this.handleCountryDeleted.bind(this);
+        this.handleOpenAddCountryDialog = this.handleOpenAddCountryDialog.bind(this);
+        this.handleCloseAddCountryDialog = this.handleCloseAddCountryDialog.bind(this);
     }
 
     componentDidMount() {
@@ -137,7 +160,7 @@ class ReactCountries extends Component {
     handleOnlyVisitedChange(onlyVisited) {
         this.setState({
             onlyVisited: onlyVisited
-        })
+        });
     }
 
     handleCountryVisitedChange(countryCode, visited) {
@@ -156,12 +179,25 @@ class ReactCountries extends Component {
         });
     }
 
+    handleOpenAddCountryDialog() {
+        this.setState({
+            addCountryDialogOpened: true
+        })
+    }
+
+    handleCloseAddCountryDialog() {
+        this.setState({
+            addCountryDialogOpened: false
+        })
+    }
+
     render() {
         return (
             <Paper className="RC" elevation={4}>
                 <RotatingEarth/>
-                <RcToolbar onlyVisited={this.state.onlyVisited} onOnlyVisitedChange={this.handleOnlyVisitedChange}/>
+                <RcToolbar onlyVisited={this.state.onlyVisited} onOnlyVisitedChange={this.handleOnlyVisitedChange} onDialogOpen={this.handleOpenAddCountryDialog}/>
                 <RcList countries={this.state.countries} onlyVisited={this.state.onlyVisited} onCountryVisitedChange={this.handleCountryVisitedChange} onCountryDeleted={this.handleCountryDeleted}/>
+                <RcAddCountryDialog open={this.state.addCountryDialogOpened} onDialogClose={this.handleCloseAddCountryDialog}/>
             </Paper>
         );
     }
