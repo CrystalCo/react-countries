@@ -222,7 +222,7 @@ class ReactCountries extends Component {
         if (this.state.countryToAdd) {
             if (findIndex(this.state.countries, {'code': this.state.countryToAdd}) === -1) {
                 this.setState((prevState, props) => {
-                    let c = prevState.allCountries[findIndex(prevState.allCountries, {'alpha3Code': prevState.countryToAdd})];
+                    let c = this.state.allCountries[findIndex(this.state.allCountries, {'alpha3Code': this.state.countryToAdd.toUpperCase()})];
                     let newCountry = {code: c.alpha3Code.toLowerCase(), name: c.name, capital: c.capital, visited: false};
                     let newCountries = [...prevState.countries];
                     newCountries.splice(sortedIndexBy(newCountries, newCountry, 'name'), 0, newCountry);
