@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import GitHubRibbon from './components/GitHubRibbon';
 import ReactCountries from './components/ReactCountries';
+import CssBaseline from 'material-ui/CssBaseline';
 
 // For blah()
 //import camelCase from 'lodash/camelCase';
@@ -13,14 +14,17 @@ class App extends Component {
         //blah();
 
         return (
-            <div className="App">
-                <header className="App-header">
-                    <img src={logo} className="App-logo" alt="logo"/>
-                    <h1 className="App-title">Welcome to React Countries</h1>
-                    <GitHubRibbon/>
-                </header>
-                <ReactCountries/>
-            </div>
+            <React.Fragment>
+                <CssBaseline />
+                <div className="App">
+                    <header className="App-header">
+                        <img src={logo} className="App-logo" alt="logo"/>
+                        <h1 className="App-title">Welcome to React Countries</h1>
+                        <GitHubRibbon/>
+                    </header>
+                    <ReactCountries/>
+                </div>
+            </React.Fragment>
         );
     }
 }

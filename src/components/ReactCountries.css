@@ -1,17 +1,13 @@
 .RC {
-    border: 1px solid #ccc;
     max-width: 800px;
     height: 400px;
     margin: auto;
-    padding: 5px;
-}
-
-.RC-toolbar {
+    padding: 10px;
     position: relative;
 }
 
 .globe {
     position: absolute;
-    right: -38px;
-    top: 36px;
+    right: -26px;
+    top: 45px;
 }
