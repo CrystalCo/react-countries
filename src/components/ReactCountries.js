@@ -39,11 +39,14 @@ class RcRow extends React.Component {
 class RcList extends React.Component {
     render() {
         const rows = [];
+        const onlyVisited = this.props.onlyVisited;
 
         this.props.countries.forEach((country) => {
-            rows.push(
-                <RcRow country={country} key={country.code}/>
-            );
+            if (country.visited || !onlyVisited) {
+                rows.push(
+                    <RcRow country={country} key={country.code}/>
+                );
+            }
         });
 
         return (
@@ -58,6 +61,8 @@ class RcList extends React.Component {
 
 class RcToolbar extends React.Component {
     render() {
+        const onlyVisited = this.props.onlyVisited;
+
         return (
             <div className="RC-toolbar">
                 <Tooltip title="Add Country" placement="bottom">
@@ -67,8 +72,8 @@ class RcToolbar extends React.Component {
                 </Tooltip>
                 <Tooltip title="Only Visited" placement="bottom">
                     <Switch
-                        /*checked={this.state.checkedB}
-                        onChange={this.handleChange('checkedB')}
+                        checked={onlyVisited}
+                        /*onChange={this.handleChange('checkedB')}
                         value="checkedB"*/
                         color="secondary"
                     />
@@ -84,21 +89,34 @@ class RcToolbar extends React.Component {
 }
 
 class ReactCountries extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            countries: [],
+            onlyVisited: false
+        };
+    }
+
+    componentDidMount() {
+        // "Fetching" user's countries from "DB"
+        this.setState({
+            countries: [
+                {code: 'bra', name: 'Brazil', capital: 'Brazilia', visited: false},
+                {code: 'col', name: 'Colombia', capital: 'Bogota', visited: true},
+                {code: 'srb', name: 'Serbia', capital: 'Belgrade', visited: false}
+            ]
+        });
+    }
+
     render() {
         return (
             <Paper className="RC" elevation={4}>
                 <RotatingEarth/>
-                <RcToolbar/>
-                <RcList countries={COUNTRIES}/>
+                <RcToolbar onlyVisited={this.state.onlyVisited}/>
+                <RcList countries={this.state.countries} onlyVisited={this.state.onlyVisited}/>
             </Paper>
         );
     }
 }
-
-const COUNTRIES = [
-    {code: 'bra', name: 'Brazil', capital: 'Brazilia', visited: false},
-    {code: 'col', name: 'Colombia', capital: 'Bogota', visited: true},
-    {code: 'srb', name: 'Serbia', capital: 'Belgrade', visited: false}
-];
 
 export default ReactCountries;
