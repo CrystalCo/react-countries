@@ -122,7 +122,7 @@ class RcToolbar extends React.Component {
                 <Tooltip title="Only Visited" placement="bottom">
                     <Switch checked={onlyVisited} onChange={this.handleOnlyVisitedChange} color="secondary"/>
                 </Tooltip>
-                <Tooltip title="Show Map" placement="bottom">
+                <Tooltip title="Show Map (WIP)" placement="bottom">
                     <IconButton color="secondary">
                         <Icon>map</Icon>
                     </IconButton>
@@ -168,7 +168,7 @@ class ReactCountries extends Component {
                 this.setState({
                     allCountries: allCountriesJson,
                     countrySuggestions: allCountriesJson.map(country => ({
-                        value: country.alpha3Code,
+                        value: country.alpha3Code.toLowerCase(),
                         label: country.name
                     }))
                 }),
@@ -213,7 +213,8 @@ class ReactCountries extends Component {
 
     handleCountryToAddChanged(country) {
         this.setState({
-            countryToAdd: country
+            //countryToAdd: country
+            countryToAdd: country.toLowerCase()
         })
     }
 
