@@ -8,12 +8,16 @@ import Paper from 'material-ui/Paper';
 import Switch from 'material-ui/Switch';
 import IconButton from 'material-ui/IconButton';
 import Tooltip from 'material-ui/Tooltip';
+import List, {ListItem, ListItemText, ListItemSecondaryAction} from 'material-ui/List';
+import Checkbox from 'material-ui/Checkbox';
+import Divider from 'material-ui/Divider';
 
 class ReactCountries extends Component {
     render() {
         return (
             <Paper className="RC" elevation={4}>
                 <RotatingEarth/>
+
                 <div className="RC-toolbar">
                     <Tooltip title="Add Country" placement="bottom">
                         <Button mini="small" variant="fab" color="primary">
@@ -33,8 +37,56 @@ class ReactCountries extends Component {
                             <Icon>map</Icon>
                         </IconButton>
                     </Tooltip>
-
                 </div>
+
+                <Paper elevation={1}>
+                    <List className="RC-list">
+                        <ListItem>
+                            <img src="https://restcountries.eu/data/col.svg" alt=""
+                                 style={{width: "7%", height: "7%"}}/>
+                            <ListItemText primary="Colombia" secondary="Bogota"/>
+                            <ListItemSecondaryAction>
+                                <Tooltip title="Visited" placement="left">
+                                    <Checkbox/>
+                                </Tooltip>
+                                <IconButton color="secondary">
+                                    <Icon>delete</Icon>
+                                </IconButton>
+                            </ListItemSecondaryAction>
+                        </ListItem>
+                        <Divider />
+                        <ListItem>
+                            <img src="https://restcountries.eu/data/bra.svg" alt=""
+                                 style={{width: "7%", height: "7%"}}/>
+                            <ListItemText primary="Brazil" secondary="Brasília"/>
+                            <ListItemSecondaryAction>
+                                <Tooltip title="Visited" placement="left">
+                                    <Checkbox/>
+                                </Tooltip>
+                                <IconButton color="secondary">
+                                    <Icon>delete</Icon>
+                                </IconButton>
+                            </ListItemSecondaryAction>
+                        </ListItem>
+                        <Divider />
+                        <ListItem>
+                            <img src="https://restcountries.eu/data/srb.svg" alt=""
+                                 style={{width: "7%", height: "7%"}}/>
+                            <ListItemText primary="Serbia" secondary="Belgrade"/>
+                            <ListItemSecondaryAction>
+                                <Tooltip title="Visited" placement="left">
+                                    <Checkbox/>
+                                </Tooltip>
+                                <IconButton color="secondary">
+                                    <Icon>delete</Icon>
+                                </IconButton>
+                            </ListItemSecondaryAction>
+                        </ListItem>
+                        <Divider />
+                    </List>
+                </Paper>
+
+
             </Paper>
         );
     }

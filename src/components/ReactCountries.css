@@ -1,9 +1,19 @@
 .RC {
-    max-width: 800px;
-    height: 400px;
+    max-width: 600px;
+    min-height: 400px;
     margin: auto;
     padding: 10px;
     position: relative;
+}
+
+.RC-toolbar {
+    margin-bottom: 30px;
+}
+
+.RC-list {
+    height: 300px;
+    background-color: #F8F8F8;
+    overflow: scroll;
 }
 
 .globe {
