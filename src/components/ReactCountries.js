@@ -43,7 +43,7 @@ class ReactCountries extends Component {
                     <List className="RC-list">
                         <ListItem>
                             <img src="https://restcountries.eu/data/col.svg" alt=""
-                                 style={{width: "7%", height: "7%"}}/>
+                                 style={{width: "9%", height: "9%"}}/>
                             <ListItemText primary="Colombia" secondary="Bogota"/>
                             <ListItemSecondaryAction>
                                 <Tooltip title="Visited" placement="left">
@@ -57,7 +57,7 @@ class ReactCountries extends Component {
                         <Divider />
                         <ListItem>
                             <img src="https://restcountries.eu/data/bra.svg" alt=""
-                                 style={{width: "7%", height: "7%"}}/>
+                                 style={{width: "9%", height: "9%"}}/>
                             <ListItemText primary="Brazil" secondary="Brasília"/>
                             <ListItemSecondaryAction>
                                 <Tooltip title="Visited" placement="left">
@@ -71,7 +71,7 @@ class ReactCountries extends Component {
                         <Divider />
                         <ListItem>
                             <img src="https://restcountries.eu/data/srb.svg" alt=""
-                                 style={{width: "7%", height: "7%"}}/>
+                                 style={{width: "9%", height: "9%"}}/>
                             <ListItemText primary="Serbia" secondary="Belgrade"/>
                             <ListItemSecondaryAction>
                                 <Tooltip title="Visited" placement="left">
