@@ -11,19 +11,30 @@ import Tooltip from 'material-ui/Tooltip';
 import List, {ListItem, ListItemText, ListItemSecondaryAction} from 'material-ui/List';
 import Checkbox from 'material-ui/Checkbox';
 import Divider from 'material-ui/Divider';
+import findIndex from 'lodash/findIndex'
 
 class RcRow extends React.Component {
+    constructor(props) {
+        super(props);
+        this.handleCountryVisitedChange = this.handleCountryVisitedChange.bind(this);
+    }
+
+    handleCountryVisitedChange(countryCode, e) {
+        this.props.onCountryVisitedChange(countryCode, e.target.checked);
+    }
+
     render() {
         const country = this.props.country;
 
         return (
             <Fragment>
                 <ListItem>
-                    <img src={`https://restcountries.eu/data/${country.code}.svg`} alt={country.code} className="RC-flag"/>
+                    <img src={`https://restcountries.eu/data/${country.code}.svg`} alt={country.code}
+                         className="RC-flag"/>
                     <ListItemText primary={country.name} secondary={country.capital}/>
                     <ListItemSecondaryAction>
                         <Tooltip title="Visited" placement="left">
-                            <Checkbox checked={country.visited}/>
+                            <Checkbox checked={country.visited} onChange={(e) => this.handleCountryVisitedChange(country.code, e)}/>
                         </Tooltip>
                         <IconButton color="secondary">
                             <Icon>delete</Icon>
@@ -44,7 +55,7 @@ class RcList extends React.Component {
         this.props.countries.forEach((country) => {
             if (country.visited || !onlyVisited) {
                 rows.push(
-                    <RcRow country={country} key={country.code}/>
+                    <RcRow country={country} key={country.code} onCountryVisitedChange={this.props.onCountryVisitedChange}/>
                 );
             }
         });
@@ -76,16 +87,12 @@ class RcToolbar extends React.Component {
         return (
             <div className="RC-toolbar">
                 <Tooltip title="Add Country" placement="bottom">
-                    <Button mini="small" variant="fab" color="primary">
+                    <Button mini={true} variant="fab" color="primary">
                         <Icon>add</Icon>
                     </Button>
                 </Tooltip>
                 <Tooltip title="Only Visited" placement="bottom">
-                    <Switch
-                        checked={onlyVisited}
-                        onChange={this.handleOnlyVisitedChange}
-                        color="secondary"
-                    />
+                    <Switch checked={onlyVisited} onChange={this.handleOnlyVisitedChange} color="secondary"/>
                 </Tooltip>
                 <Tooltip title="Show Map" placement="bottom">
                     <IconButton color="secondary">
@@ -106,6 +113,7 @@ class ReactCountries extends Component {
         };
 
         this.handleOnlyVisitedChange = this.handleOnlyVisitedChange.bind(this);
+        this.handleCountryVisitedChange = this.handleCountryVisitedChange.bind(this);
 
     }
 
@@ -126,12 +134,20 @@ class ReactCountries extends Component {
         })
     }
 
+    handleCountryVisitedChange(countryCode, visited) {
+        this.setState((prevState, props) => {
+            let newState = {countries: [...prevState.countries]};
+            newState.countries[findIndex(newState.countries, {'code': countryCode})].visited = visited;
+            return newState;
+        });
+    }
+
     render() {
         return (
             <Paper className="RC" elevation={4}>
                 <RotatingEarth/>
                 <RcToolbar onlyVisited={this.state.onlyVisited} onOnlyVisitedChange={this.handleOnlyVisitedChange}/>
-                <RcList countries={this.state.countries} onlyVisited={this.state.onlyVisited}/>
+                <RcList countries={this.state.countries} onlyVisited={this.state.onlyVisited} onCountryVisitedChange={this.handleCountryVisitedChange}/>
             </Paper>
         );
     }
