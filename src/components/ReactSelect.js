@@ -1,5 +1,7 @@
 /* eslint-disable react/prop-types */
 
+// Integration and styling with React Select autocomplete lib
+
 import React from "react";
 import PropTypes from "prop-types";
 import {withStyles} from "material-ui/styles";
@@ -13,46 +15,6 @@ import ClearIcon from "@material-ui/icons/Clear";
 import Chip from "material-ui/Chip";
 import Select from "react-select";
 import "react-select/dist/react-select.css";
-
-const suggestions = [
-    {label: "Afghanistan"},
-    {label: "Aland Islands"},
-    {label: "Albania"},
-    {label: "Algeria"},
-    {label: "American Samoa"},
-    {label: "Andorra"},
-    {label: "Angola"},
-    {label: "Anguilla"},
-    {label: "Antarctica"},
-    {label: "Antigua and Barbuda"},
-    {label: "Argentina"},
-    {label: "Armenia"},
-    {label: "Aruba"},
-    {label: "Australia"},
-    {label: "Austria"},
-    {label: "Azerbaijan"},
-    {label: "Bahamas"},
-    {label: "Bahrain"},
-    {label: "Bangladesh"},
-    {label: "Barbados"},
-    {label: "Belarus"},
-    {label: "Belgium"},
-    {label: "Belize"},
-    {label: "Benin"},
-    {label: "Bermuda"},
-    {label: "Bhutan"},
-    {label: "Bolivia, Plurinational State of"},
-    {label: "Bonaire, Sint Eustatius and Saba"},
-    {label: "Bosnia and Herzegovina"},
-    {label: "Botswana"},
-    {label: "Bouvet Island"},
-    {label: "Brazil"},
-    {label: "British Indian Ocean Territory"},
-    {label: "Brunei Darussalam"}
-].map(suggestion => ({
-    value: suggestion.label,
-    label: suggestion.label
-}));
 
 class Option extends React.Component {
     handleClick = event => {
@@ -227,19 +189,7 @@ const styles = theme => ({
     }
 });
 
-class IntegrationReactSelect extends React.Component {
-    state = {
-        single: null,
-        multi: null,
-        multiLabel: null
-    };
-
-    handleChange = name => value => {
-        this.setState({
-            [name]: value
-        });
-    };
-
+class ReactSelect extends React.Component {
     render() {
         const {classes} = this.props;
 
@@ -248,16 +198,16 @@ class IntegrationReactSelect extends React.Component {
                 <Input
                     fullWidth
                     inputComponent={SelectWrapped}
-                    value={this.state.single}
-                    onChange={this.handleChange("single")}
-                    placeholder="Search a country (start with a)"
+                    value={this.props.value}
+                    onChange={this.props.onChange}
+                    placeholder={this.props.placeholder}
                     id="react-select-single"
                     inputProps={{
                         classes,
                         name: "react-select-single",
                         instanceId: "react-select-single",
                         simpleValue: true,
-                        options: suggestions
+                        options: this.props.suggestions
                     }}
                 />
             </div>
@@ -265,8 +215,8 @@ class IntegrationReactSelect extends React.Component {
     }
 }
 
-IntegrationReactSelect.propTypes = {
+ReactSelect.propTypes = {
     classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(IntegrationReactSelect);
+export default withStyles(styles)(ReactSelect);
