@@ -99,17 +99,20 @@ class ReactCountries extends Component {
 
     handleAddCountry = () => {
         if (this.state.countryToAdd) {
-            if (findIndex(this.state.countries, {'code': this.state.countryToAdd}) === -1) {
+            let addCountry = findIndex(this.state.countries, {'code': this.state.countryToAdd}) === -1;
+            if (addCountry) {
                 this.setState((prevState, props) => {
-                    let c = this.state.allCountries[findIndex(this.state.allCountries, {'alpha3Code': this.state.countryToAdd.toUpperCase()})];
+                    let countryIndex = findIndex(this.state.allCountries, {'alpha3Code': this.state.countryToAdd.toUpperCase()});
+                    let country = this.state.allCountries[countryIndex];
                     let newCountry = {
-                        code: c.alpha3Code.toLowerCase(),
-                        name: c.name,
-                        capital: c.capital,
+                        code: country.alpha3Code.toLowerCase(),
+                        name: country.name,
+                        capital: country.capital,
                         visited: false
                     };
                     let newCountries = [...prevState.countries];
-                    newCountries.splice(sortedIndexBy(newCountries, newCountry, 'name'), 0, newCountry);
+                    let newCountryIndex = sortedIndexBy(newCountries, newCountry, 'name');
+                    newCountries.splice(newCountryIndex, 0, newCountry);
                     return {countries: newCountries, msgOpen: true, msg: "Country has been added"};
                 });
             }
