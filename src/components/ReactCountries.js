@@ -27,9 +27,7 @@ class RcAddCountryDialog extends React.Component {
                 <Dialog open={this.props.open} onClose={this.props.onDialogClose} fullWidth={true}>
                     <DialogTitle id="form-dialog-title">Add Country</DialogTitle>
                     <DialogContent>
-                        <ReactSelect suggestions={this.props.suggestions} placeholder="Search a country"
-                                     autofocus={true} value={this.props.countryToAdd}
-                                     onChange={this.props.onCountryToAddChanged}/>
+                        <ReactSelect suggestions={this.props.suggestions} placeholder="Search a country" autofocus={true} value={this.props.countryToAdd} onChange={this.props.onCountryToAddChanged}/>
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={this.props.onDialogClose} color="primary">Cancel</Button>
@@ -264,11 +262,8 @@ class ReactCountries extends Component {
             <Fragment>
                 <Paper className="RC" elevation={4}>
                     <RotatingEarth/>
-                    <RcToolbar onlyVisited={this.state.onlyVisited} onOnlyVisitedChange={this.handleOnlyVisitedChange}
-                               onDialogOpen={this.handleOpenAddCountryDialog}/>
-                    <RcList countries={this.state.countries} onlyVisited={this.state.onlyVisited}
-                            onCountryVisitedChange={this.handleCountryVisitedChange}
-                            onCountryDeleted={this.handleCountryDeleted}/>
+                    <RcToolbar onlyVisited={this.state.onlyVisited} onOnlyVisitedChange={this.handleOnlyVisitedChange} onDialogOpen={this.handleOpenAddCountryDialog}/>
+                    <RcList countries={this.state.countries} onlyVisited={this.state.onlyVisited} onCountryVisitedChange={this.handleCountryVisitedChange} onCountryDeleted={this.handleCountryDeleted}/>
                     <RcAddCountryDialog open={this.state.addCountryDialogOpened}
                                         suggestions={this.state.countrySuggestions}
                                         onDialogClose={this.handleCloseAddCountryDialog}
@@ -281,7 +276,6 @@ class ReactCountries extends Component {
                     open={this.state.msgOpen}
                     autoHideDuration={2000}
                     onClose={this.handleMsgClose}
-                    SnackbarContentProps={{'aria-describedby': 'message-id',}}
                     message={<span id="message-id">{this.state.msg}</span>}
                     action={[
                         <IconButton key="close" color="inherit" onClick={this.handleMsgClose}>
