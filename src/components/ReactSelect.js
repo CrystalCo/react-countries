@@ -198,6 +198,7 @@ class ReactSelect extends React.Component {
                 <Input
                     fullWidth
                     inputComponent={SelectWrapped}
+                    autoFocus={this.props.autofocus}
                     value={this.props.value}
                     onChange={this.props.onChange}
                     placeholder={this.props.placeholder}
