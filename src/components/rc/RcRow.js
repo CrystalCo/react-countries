@@ -1,6 +1,4 @@
 import React, {Fragment} from 'react';
-import './ReactCountries.css';
-import './RotatingEarth';
 import {Icon} from "material-ui";
 import IconButton from 'material-ui/IconButton';
 import Tooltip from 'material-ui/Tooltip';

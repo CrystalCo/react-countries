@@ -1,6 +1,4 @@
 import React from 'react';
-import './ReactCountries.css';
-import './RotatingEarth';
 import Paper from 'material-ui/Paper';
 import List from 'material-ui/List';
 import RcRow from "./RcRow";

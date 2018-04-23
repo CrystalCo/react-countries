@@ -1,9 +1,7 @@
 import React from 'react';
-import './ReactCountries.css';
 import Button from 'material-ui/Button';
-import './RotatingEarth';
 import Dialog, {DialogActions, DialogContent, DialogTitle} from 'material-ui/Dialog';
-import ReactSelect from './ReactSelect'
+import ReactSelect from '../ReactSelect'
 
 class RcAddCountryDialog extends React.Component {
     render() {

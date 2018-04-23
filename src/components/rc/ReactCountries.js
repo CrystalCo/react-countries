@@ -1,14 +1,13 @@
 import React, {Component, Fragment} from 'react';
-import './ReactCountries.css';
-import './RotatingEarth';
-import RotatingEarth from "./RotatingEarth";
+import './rc.css';
+import RotatingEarth from '../RotatingEarth';
 import Paper from 'material-ui/Paper';
 import IconButton from 'material-ui/IconButton';
 import findIndex from 'lodash/findIndex'
 import sortedIndexBy from 'lodash/sortedIndexBy'
 import remove from 'lodash/remove'
 //import math from 'lodash/math';
-import CountryUtil from '../utils/CountryUtil'
+import CountryUtil from '../../utils/CountryUtil'
 import Snackbar from 'material-ui/Snackbar';
 import CloseIcon from '@material-ui/icons/Close';
 import RcAddCountryDialog from "./RcAddCountryDialog";

@@ -1,7 +1,5 @@
 import React from 'react';
-import './ReactCountries.css';
 import Button from 'material-ui/Button';
-import './RotatingEarth';
 import {Icon} from "material-ui";
 import Switch from 'material-ui/Switch';
 import IconButton from 'material-ui/IconButton';
