@@ -25,7 +25,7 @@ class RcAddCountryDialog extends React.Component {
                 <Dialog open={this.props.open} onClose={this.props.onDialogClose} fullWidth={true}>
                     <DialogTitle id="form-dialog-title">Add Country</DialogTitle>
                     <DialogContent>
-                        <ReactSelect suggestions={this.props.suggestions} placeholder="Search a country" value={this.props.countryToAdd} onChange={this.props.onCountryToAddChanged}/>
+                        <ReactSelect suggestions={this.props.suggestions} placeholder="Search a country" autofocus={true} value={this.props.countryToAdd} onChange={this.props.onCountryToAddChanged}/>
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={this.props.onDialogClose} color="primary">Cancel</Button>
@@ -212,10 +212,11 @@ class ReactCountries extends Component {
     }
 
     handleCountryToAddChanged(country) {
-        this.setState({
-            //countryToAdd: country
-            countryToAdd: country.toLowerCase()
-        })
+        if (country) {
+            this.setState({
+                countryToAdd: country.toLowerCase()
+            })
+        }
     }
 
     handleAddCountry() {
