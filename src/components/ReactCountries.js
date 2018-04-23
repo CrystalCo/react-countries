@@ -14,6 +14,7 @@ import Divider from 'material-ui/Divider';
 import findIndex from 'lodash/findIndex'
 import sortedIndexBy from 'lodash/sortedIndexBy'
 import remove from 'lodash/remove'
+//import math from 'lodash/math';
 import Dialog, {DialogActions, DialogContent, DialogTitle} from 'material-ui/Dialog';
 import ReactSelect from './ReactSelect'
 import CountryUtil from '../utils/CountryUtil'
@@ -60,13 +61,11 @@ class RcRow extends React.Component {
         return (
             <Fragment>
                 <ListItem>
-                    <img src={`https://restcountries.eu/data/${country.code}.svg`} alt={country.code}
-                         className="RC-flag"/>
+                    <img src={`https://restcountries.eu/data/${country.code}.svg`} alt={country.code} className="RC-flag"/>
                     <ListItemText primary={country.name} secondary={country.capital}/>
                     <ListItemSecondaryAction>
                         <Tooltip title="Visited" placement="left">
-                            <Checkbox checked={country.visited}
-                                      onChange={(e) => this.handleCountryVisitedChange(country.code, e)}/>
+                            <Checkbox checked={country.visited} onChange={(e) => this.handleCountryVisitedChange(country.code, e)}/>
                         </Tooltip>
                         <IconButton color="secondary" onClick={(e) => this.handleCountryDeleted(country.code)}>
                             <Icon>delete</Icon>
@@ -87,9 +86,7 @@ class RcList extends React.Component {
         this.props.countries.forEach((country) => {
             if (country.visited || !onlyVisited) {
                 rows.push(
-                    <RcRow country={country} key={country.code}
-                           onCountryVisitedChange={this.props.onCountryVisitedChange}
-                           onCountryDeleted={this.props.onCountryDeleted}/>
+                    <RcRow country={country} key={country.code} onCountryVisitedChange={this.props.onCountryVisitedChange} onCountryDeleted={this.props.onCountryDeleted}/>
                 );
             }
         });

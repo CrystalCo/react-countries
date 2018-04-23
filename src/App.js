@@ -6,14 +6,8 @@ import ReactCountries from './components/ReactCountries';
 import CssBaseline from 'material-ui/CssBaseline';
 import {createMuiTheme, MuiThemeProvider} from 'material-ui/styles';
 
-// For blah()
-//import camelCase from 'lodash/camelCase';
-//import math from 'lodash/math';
-
 class App extends Component {
     render() {
-        //blah();
-
         const theme = createMuiTheme({
             palette: {
                 primary: {
@@ -46,14 +40,5 @@ class App extends Component {
         );
     }
 }
-
-// Just for learning/playing
-/*function blah() {
-    console.log("Blah Invoked");
-
-    // Lodash
-    console.log(`CamelCase: ${camelCase("foo bar")}`);
-    console.log(`Sum: ${math.sum([4, 2, 10])}`);
-}*/
 
 export default App;
