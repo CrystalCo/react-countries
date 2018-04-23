@@ -17,6 +17,8 @@ import remove from 'lodash/remove'
 import Dialog, {DialogActions, DialogContent, DialogTitle} from 'material-ui/Dialog';
 import ReactSelect from './ReactSelect'
 import CountryUtil from '../utils/CountryUtil'
+import Snackbar from 'material-ui/Snackbar';
+import CloseIcon from '@material-ui/icons/Close';
 
 class RcAddCountryDialog extends React.Component {
     render() {
@@ -25,7 +27,9 @@ class RcAddCountryDialog extends React.Component {
                 <Dialog open={this.props.open} onClose={this.props.onDialogClose} fullWidth={true}>
                     <DialogTitle id="form-dialog-title">Add Country</DialogTitle>
                     <DialogContent>
-                        <ReactSelect suggestions={this.props.suggestions} placeholder="Search a country" autofocus={true} value={this.props.countryToAdd} onChange={this.props.onCountryToAddChanged}/>
+                        <ReactSelect suggestions={this.props.suggestions} placeholder="Search a country"
+                                     autofocus={true} value={this.props.countryToAdd}
+                                     onChange={this.props.onCountryToAddChanged}/>
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={this.props.onDialogClose} color="primary">Cancel</Button>
@@ -58,11 +62,13 @@ class RcRow extends React.Component {
         return (
             <Fragment>
                 <ListItem>
-                    <img src={`https://restcountries.eu/data/${country.code}.svg`} alt={country.code} className="RC-flag"/>
+                    <img src={`https://restcountries.eu/data/${country.code}.svg`} alt={country.code}
+                         className="RC-flag"/>
                     <ListItemText primary={country.name} secondary={country.capital}/>
                     <ListItemSecondaryAction>
                         <Tooltip title="Visited" placement="left">
-                            <Checkbox checked={country.visited} onChange={(e) => this.handleCountryVisitedChange(country.code, e)}/>
+                            <Checkbox checked={country.visited}
+                                      onChange={(e) => this.handleCountryVisitedChange(country.code, e)}/>
                         </Tooltip>
                         <IconButton color="secondary" onClick={(e) => this.handleCountryDeleted(country.code)}>
                             <Icon>delete</Icon>
@@ -83,7 +89,9 @@ class RcList extends React.Component {
         this.props.countries.forEach((country) => {
             if (country.visited || !onlyVisited) {
                 rows.push(
-                    <RcRow country={country} key={country.code} onCountryVisitedChange={this.props.onCountryVisitedChange} onCountryDeleted={this.props.onCountryDeleted}/>
+                    <RcRow country={country} key={country.code}
+                           onCountryVisitedChange={this.props.onCountryVisitedChange}
+                           onCountryDeleted={this.props.onCountryDeleted}/>
                 );
             }
         });
@@ -141,7 +149,9 @@ class ReactCountries extends Component {
             countrySuggestions: [],
             onlyVisited: false,
             addCountryDialogOpened: false,
-            countryToAdd: ''
+            countryToAdd: '',
+            msgOpen: false,
+            msg: ''
         };
 
         this.handleOnlyVisitedChange = this.handleOnlyVisitedChange.bind(this);
@@ -151,6 +161,7 @@ class ReactCountries extends Component {
         this.handleCloseAddCountryDialog = this.handleCloseAddCountryDialog.bind(this);
         this.handleCountryToAddChanged = this.handleCountryToAddChanged.bind(this);
         this.handleAddCountry = this.handleAddCountry.bind(this);
+        this.handleMsgClose = this.handleMsgClose.bind(this);
     }
 
     componentDidMount() {
@@ -192,7 +203,7 @@ class ReactCountries extends Component {
 
     handleCountryDeleted(countryCode) {
         this.setState((prevState, props) => {
-            let newState = {countries: [...prevState.countries]};
+            let newState = {countries: [...prevState.countries], msgOpen: true, msg: "Country has been deleted"};
             remove(newState.countries, (country) => country.code === countryCode);
             return newState;
         });
@@ -224,10 +235,15 @@ class ReactCountries extends Component {
             if (findIndex(this.state.countries, {'code': this.state.countryToAdd}) === -1) {
                 this.setState((prevState, props) => {
                     let c = this.state.allCountries[findIndex(this.state.allCountries, {'alpha3Code': this.state.countryToAdd.toUpperCase()})];
-                    let newCountry = {code: c.alpha3Code.toLowerCase(), name: c.name, capital: c.capital, visited: false};
+                    let newCountry = {
+                        code: c.alpha3Code.toLowerCase(),
+                        name: c.name,
+                        capital: c.capital,
+                        visited: false
+                    };
                     let newCountries = [...prevState.countries];
                     newCountries.splice(sortedIndexBy(newCountries, newCountry, 'name'), 0, newCountry);
-                    return {countries: newCountries};
+                    return {countries: newCountries, msgOpen: true, msg: "Country has been added"};
                 });
             }
 
@@ -235,14 +251,45 @@ class ReactCountries extends Component {
         }
     }
 
+    handleMsgClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        this.setState({msgOpen: false, msg: ''});
+    };
+
     render() {
         return (
-            <Paper className="RC" elevation={4}>
-                <RotatingEarth/>
-                <RcToolbar onlyVisited={this.state.onlyVisited} onOnlyVisitedChange={this.handleOnlyVisitedChange} onDialogOpen={this.handleOpenAddCountryDialog}/>
-                <RcList countries={this.state.countries} onlyVisited={this.state.onlyVisited} onCountryVisitedChange={this.handleCountryVisitedChange} onCountryDeleted={this.handleCountryDeleted}/>
-                <RcAddCountryDialog open={this.state.addCountryDialogOpened} suggestions={this.state.countrySuggestions} onDialogClose={this.handleCloseAddCountryDialog} countryToAdd={this.state.countryToAdd} onCountryToAddChanged={this.handleCountryToAddChanged} onCountryAdd={this.handleAddCountry}/>
-            </Paper>
+            <Fragment>
+                <Paper className="RC" elevation={4}>
+                    <RotatingEarth/>
+                    <RcToolbar onlyVisited={this.state.onlyVisited} onOnlyVisitedChange={this.handleOnlyVisitedChange}
+                               onDialogOpen={this.handleOpenAddCountryDialog}/>
+                    <RcList countries={this.state.countries} onlyVisited={this.state.onlyVisited}
+                            onCountryVisitedChange={this.handleCountryVisitedChange}
+                            onCountryDeleted={this.handleCountryDeleted}/>
+                    <RcAddCountryDialog open={this.state.addCountryDialogOpened}
+                                        suggestions={this.state.countrySuggestions}
+                                        onDialogClose={this.handleCloseAddCountryDialog}
+                                        countryToAdd={this.state.countryToAdd}
+                                        onCountryToAddChanged={this.handleCountryToAddChanged}
+                                        onCountryAdd={this.handleAddCountry}/>
+                </Paper>
+                <Snackbar
+                    anchorOrigin={{vertical: 'bottom', horizontal: 'left',}}
+                    open={this.state.msgOpen}
+                    autoHideDuration={2000}
+                    onClose={this.handleMsgClose}
+                    SnackbarContentProps={{'aria-describedby': 'message-id',}}
+                    message={<span id="message-id">{this.state.msg}</span>}
+                    action={[
+                        <IconButton key="close" color="inherit" onClick={this.handleMsgClose}>
+                            <CloseIcon/>
+                        </IconButton>,
+                    ]}
+                />
+            </Fragment>
         );
     }
 }
