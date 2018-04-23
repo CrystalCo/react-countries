@@ -120,11 +120,11 @@ class RcToolbar extends React.Component {
 
         return (
             <div className="RC-toolbar">
-                <Tooltip title="Add Country" placement="bottom">
+                {/*<Tooltip title="Add Country" placement="bottom">*/}
                     <Button mini={true} variant="fab" color="primary" onClick={this.props.onDialogOpen}>
                         <Icon>add</Icon>
                     </Button>
-                </Tooltip>
+                {/*</Tooltip>*/}
                 <Tooltip title="Only Visited" placement="bottom">
                     <Switch checked={onlyVisited} onChange={this.handleOnlyVisitedChange} color="secondary"/>
                 </Tooltip>
