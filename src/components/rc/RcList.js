@@ -3,27 +3,23 @@ import Paper from 'material-ui/Paper';
 import List from 'material-ui/List';
 import RcRow from "./RcRow";
 
-class RcList extends React.Component {
-    render() {
-        const rows = [];
-        const onlyVisited = this.props.onlyVisited;
+export default function RcList(props) {
+    const rows = [];
+    const onlyVisited = props.onlyVisited;
 
-        this.props.countries.forEach((country) => {
-            if (country.visited || !onlyVisited) {
-                rows.push(
-                    <RcRow country={country} key={country.code} onCountryVisitedChange={this.props.onCountryVisitedChange} onCountryDeleted={this.props.onCountryDeleted}/>
-                );
-            }
-        });
+    props.countries.forEach((country) => {
+        if (country.visited || !onlyVisited) {
+            rows.push(
+                <RcRow country={country} key={country.code} onCountryVisitedChange={props.onCountryVisitedChange} onCountryDeleted={props.onCountryDeleted}/>
+            );
+        }
+    });
 
-        return (
-            <Paper elevation={1}>
-                <List className="RC-list">
-                    {rows}
-                </List>
-            </Paper>
-        );
-    }
+    return (
+        <Paper elevation={1}>
+            <List className="RC-list">
+                {rows}
+            </List>
+        </Paper>
+    );
 }
-
-export default RcList;
