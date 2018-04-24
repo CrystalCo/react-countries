@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import logo from './logo.svg';
 import './App.css';
 import GitHubRibbon from './components/GitHubRibbon';
-import ReactCountries from './components/rc/ReactCountries';
+import ReactCountriesContainer from './containers/ReactCountriesContainer';
 import CssBaseline from 'material-ui/CssBaseline';
 import {createMuiTheme, MuiThemeProvider} from 'material-ui/styles';
 
@@ -34,7 +34,7 @@ class App extends Component {
                         <h1 className="App-title">Welcome to React Countries</h1>
                         <GitHubRibbon/>
                     </header>
-                    <ReactCountries/>
+                    <ReactCountriesContainer/>
                 </div>
             </MuiThemeProvider>
         );

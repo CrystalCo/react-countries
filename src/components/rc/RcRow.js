@@ -6,36 +6,24 @@ import {ListItem, ListItemSecondaryAction, ListItemText} from 'material-ui/List'
 import Checkbox from 'material-ui/Checkbox';
 import Divider from 'material-ui/Divider';
 
-class RcRow extends React.Component {
-    handleCountryVisitedChange = (countryCode, e) => {
-        this.props.onCountryVisitedChange(countryCode, e.target.checked);
-    };
+export default function RcRow(props) {
+    const country = props.country;
 
-    handleCountryDeleted = (countryCode) => {
-        this.props.onCountryDeleted(countryCode);
-    };
-
-    render() {
-        const country = this.props.country;
-
-        return (
-            <Fragment>
-                <ListItem>
-                    <img src={`https://restcountries.eu/data/${country.code}.svg`} alt={country.code} className="RC-flag"/>
-                    <ListItemText primary={country.name} secondary={country.capital}/>
-                    <ListItemSecondaryAction>
-                        <Tooltip title="Visited" placement="left">
-                            <Checkbox checked={country.visited} onChange={(e) => this.handleCountryVisitedChange(country.code, e)}/>
-                        </Tooltip>
-                        <IconButton color="secondary" onClick={(e) => this.handleCountryDeleted(country.code)}>
-                            <Icon>delete</Icon>
-                        </IconButton>
-                    </ListItemSecondaryAction>
-                </ListItem>
-                <Divider/>
-            </Fragment>
-        );
-    }
+    return (
+        <Fragment>
+            <ListItem>
+                <img src={`https://restcountries.eu/data/${country.code}.svg`} alt={country.code} className="RC-flag"/>
+                <ListItemText primary={country.name} secondary={country.capital}/>
+                <ListItemSecondaryAction>
+                    <Tooltip title="Visited" placement="left">
+                        <Checkbox checked={country.visited} onChange={(e) => props.onCountryVisitedChange(country.code, e.target.checked)}/>
+                    </Tooltip>
+                    <IconButton color="secondary" onClick={(e) => props.onCountryDeleted(country.code)}>
+                        <Icon>delete</Icon>
+                    </IconButton>
+                </ListItemSecondaryAction>
+            </ListItem>
+            <Divider/>
+        </Fragment>
+    );
 }
-
-export default RcRow;
