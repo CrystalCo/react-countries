@@ -130,7 +130,8 @@ class ReactCountriesContainer extends Component {
                             handleCountryDeleted={this.handleCountryDeleted}
                             handleCloseAddCountryDialog={this.handleCloseAddCountryDialog}
                             handleCountryToAddChanged={this.handleCountryToAddChanged}
-                            handleAddCountry={this.handleAddCountry} handleMsgClose={this.handleMsgClose}/>
+                            handleAddCountry={this.handleAddCountry} handleMsgClose={this.handleMsgClose}
+                            handleOnlyVisitedChange={this.handleOnlyVisitedChange}/>
         );
     }
 }
