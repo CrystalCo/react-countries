@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from 'material-ui/Button';
 import Dialog, {DialogActions, DialogContent, DialogTitle} from 'material-ui/Dialog';
-import ReactSelect from '../ReactSelect'
+import ReactSelect from './ReactSelect'
 
 export default function RcAddCountryDialog(props) {
     return (

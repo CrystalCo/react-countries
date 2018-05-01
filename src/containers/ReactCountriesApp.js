@@ -4,9 +4,9 @@ import sortedIndexBy from 'lodash/sortedIndexBy'
 import remove from 'lodash/remove'
 //import math from 'lodash/math';
 import CountryUtil from '../utils/CountryUtil'
-import ReactCountries from "../components/rc/ReactCountries";
+import ReactCountries from "../components/ReactCountries";
 
-class ReactCountriesContainer extends Component {
+class ReactCountriesApp extends Component {
     state = {
         countries: [],
         allCountries: [],
@@ -136,4 +136,4 @@ class ReactCountriesContainer extends Component {
     }
 }
 
-export default ReactCountriesContainer;
+export default ReactCountriesApp;

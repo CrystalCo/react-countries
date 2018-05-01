@@ -1,6 +1,6 @@
 import React, {Fragment} from 'react';
 import './ReactCountries.css';
-import RotatingEarth from '../RotatingEarth';
+import RotatingEarth from './RotatingEarth';
 import Paper from 'material-ui/Paper';
 import IconButton from 'material-ui/IconButton';
 import Snackbar from 'material-ui/Snackbar';
