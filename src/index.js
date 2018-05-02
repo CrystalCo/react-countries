@@ -1,19 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ReactCountriesApp from './containers/ReactCountriesApp';
+import App from './containers/App';
 import {Provider} from 'react-redux'
 import {createStore} from 'redux';
 import CssBaseline from 'material-ui/CssBaseline';
 import {createMuiTheme, MuiThemeProvider} from 'material-ui/styles';
 import rootReducer from './reducers';
-import logo from './logo.svg';
-import './index.css';
-import GitHubRibbon from './components/GitHubRibbon';
-
-const store = createStore(rootReducer);
 
 ReactDOM.render(
-    <Provider store={store}>
+    <Provider store={createStore(rootReducer)}>
         <MuiThemeProvider theme={createMuiTheme({
             palette: {
                 primary: {
@@ -31,14 +26,7 @@ ReactDOM.render(
             },
         })}>
             <CssBaseline/>
-            <div>
-                <header className="RC-header">
-                    <img src={logo} className="RC-logo" alt="logo"/>
-                    <h1 className="RC-title">Welcome to React Countries</h1>
-                    <GitHubRibbon/>
-                </header>
-                <ReactCountriesApp/>
-            </div>
+            <App/>
         </MuiThemeProvider>
     </Provider>,
     document.getElementById('root')

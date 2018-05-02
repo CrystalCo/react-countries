@@ -14,7 +14,7 @@ import {
     toggleCountry
 } from "../actions"
 
-class ReactCountriesApp extends Component {
+class App extends Component {
     /*constructor(props) {
         super(props);
     }*/
@@ -79,5 +79,5 @@ const mapDispatchToProps = dispatch => ({
     }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ReactCountriesApp)
+export default connect(mapStateToProps, mapDispatchToProps)(App)
 

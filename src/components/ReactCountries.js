@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React from 'react';
 import './ReactCountries.css';
 import RotatingEarth from './RotatingEarth';
 import Paper from 'material-ui/Paper';
@@ -8,10 +8,17 @@ import CloseIcon from '@material-ui/icons/Close';
 import RcAddCountryDialog from "./RcAddCountryDialog";
 import RcList from "./RcList";
 import RcToolbar from "./RcToolbar";
+import logo from '../img/logo.svg';
+import GitHubRibbon from '../components/GitHubRibbon';
 
 export default function ReactCountries(props) {
     return (
-        <Fragment>
+        <div>
+            <header className="RC-header">
+                <img src={logo} className="RC-logo" alt="logo"/>
+                <h1 className="RC-title">Welcome to React Countries</h1>
+                <GitHubRibbon/>
+            </header>
             <Paper className="RC" elevation={4}>
                 <RotatingEarth/>
                 <RcToolbar onlyVisited={props.ui.onlyVisited} onOnlyVisitedChange={props.handleOnlyVisitedChange}
@@ -43,6 +50,6 @@ export default function ReactCountries(props) {
                     </IconButton>,
                 ]}
             />
-        </Fragment>
+        </div>
     );
 }
