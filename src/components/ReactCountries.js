@@ -10,8 +10,6 @@ import RcList from "./RcList";
 import RcToolbar from "./RcToolbar";
 
 export default function ReactCountries(props) {
-    //console.log(`ReactCountries: ${JSON.stringify(props)}`);
-
     return (
         <Fragment>
             <Paper className="RC" elevation={4}>

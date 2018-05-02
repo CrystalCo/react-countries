@@ -1,9 +1,10 @@
-import {addCountryDialogOpened, setCountries, setMessage} from "../actions";
 import findIndex from "lodash/findIndex";
 import sortedIndexBy from "lodash/sortedIndexBy";
 
 const countries = (state = [], action) => {
     switch (action.type) {
+        case 'SET_COUNTRIES':
+            return action.userCountries;
         case 'ADD_COUNTRY':
             const allCountries = action.allCountries;
             const countryToAdd = action.countryToAdd;
@@ -23,8 +24,6 @@ const countries = (state = [], action) => {
                     let newCountries = [...state];
                     let newCountryIndex = sortedIndexBy(newCountries, newCountry, 'name');
                     newCountries.splice(newCountryIndex, 0, newCountry);
-
-                    console.log(newCountries);
 
                     return newCountries;
                     //dispatch(setMessage("Country has been added"));

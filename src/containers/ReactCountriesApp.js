@@ -1,66 +1,40 @@
 import React, {Component} from 'react';
-import { connect } from 'react-redux'
-import findIndex from 'lodash/findIndex'
-import sortedIndexBy from 'lodash/sortedIndexBy'
-import remove from 'lodash/remove'
-//import math from 'lodash/math';
+import {connect} from 'react-redux'
 import CountryUtil from '../utils/CountryUtil'
 import ReactCountries from "../components/ReactCountries";
-import {addCountryDialogOpened, toggleCountry, removeCountry, setMessage, setOnlyVisited, addCountry, setCountries, countryToAddChanged} from "../actions"
+import {
+    addCountry,
+    addCountryDialogOpened,
+    countryToAddChanged,
+    removeCountry,
+    setAllCountries,
+    setCountries,
+    setMessage,
+    setOnlyVisited,
+    toggleCountry
+} from "../actions"
 
 class ReactCountriesApp extends Component {
-    /*state = {
-        countries: [],
-
-        allCountries: [],
-        allCountriesSuggestion: [],
-
-        onlyVisited: false,
-        addCountryDialogOpened: false,
-        countryToAdd: '',
-        msgOpen: false,
-        msg: ''
-    };*/
-
     /*constructor(props) {
         super(props);
     }*/
 
-    // TODO
-    /*componentDidMount() {
+    componentDidMount() {
+        // Fetch all countries
+        this.props.fetchAllCountries();
         // "Fetching" user's countries from "DB"
-        this.setState({
-            countries: [
-                {code: 'bra', name: 'Brazil', capital: 'Brazilia', visited: false},
-                {code: 'col', name: 'Colombia', capital: 'Bogota', visited: true},
-                {code: 'srb', name: 'Serbia', capital: 'Belgrade', visited: false}
-            ]
-        });
+        this.props.fetchUserCountries();
+    }
 
-        CountryUtil.getAllCountries().then(
-            allCountriesJson =>
-                this.setState({
-                    allCountries: allCountriesJson,
-                    allCountriesSuggestion: allCountriesJson.map(country => ({
-                        value: country.alpha3Code.toLowerCase(),
-                        label: country.name
-                    }))
-                }),
-            error => console.error(error)
-        );
-    }*/
-
-    /*render() {
+    render() {
         return (
-            <ReactCountries />
+            <ReactCountries {...this.props} />
         );
-    }*/
+    }
 }
 
 
 const mapStateToProps = state => {
-    //console.log(`ReactCountriesApp: ${JSON.stringify(state)}`);
-
     return {...state};
 };
 
@@ -89,11 +63,21 @@ const mapDispatchToProps = dispatch => ({
         if (country) {
             dispatch(countryToAddChanged(country.toLowerCase()))
         }
+    },
+    fetchAllCountries: () => {
+        CountryUtil.getAllCountries().then(
+            allCountriesJson => dispatch(setAllCountries(allCountriesJson)),
+            error => console.error(error)
+        );
+    },
+    fetchUserCountries: () => {
+        dispatch(setCountries([
+            {code: 'bra', name: 'Brazil', capital: 'Brazilia', visited: false},
+            {code: 'col', name: 'Colombia', capital: 'Bogota', visited: true},
+            {code: 'srb', name: 'Serbia', capital: 'Belgrade', visited: false}
+        ]))
     }
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(ReactCountries)
+export default connect(mapStateToProps, mapDispatchToProps)(ReactCountriesApp)
 

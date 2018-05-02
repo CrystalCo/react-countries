@@ -1,5 +1,10 @@
 // Countries
 
+export const setCountries = userCountries => ({
+    type: 'SET_COUNTRIES',
+    userCountries
+});
+
 export const addCountry = (countryToAdd, allCountries) => ({
     type: 'ADD_COUNTRY',
     countryToAdd,

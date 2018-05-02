@@ -10,19 +10,7 @@ import logo from './logo.svg';
 import './index.css';
 import GitHubRibbon from './components/GitHubRibbon';
 
-//const store = createStore(rootReducer);
-
-// TODO - temp!
-const initialState = {
-    countries: [
-        {code: 'col', name: 'Colombia', capital: 'Bogota', visited: true},
-        {code: 'srb', name: 'Serbia', capital: 'Belgrade', visited: false}],
-    allCountries: [
-        {name: "Afghanistan", alpha3Code: "AFG", capital: "Kabul"},
-        {name: "Åland Islands", alpha3Code: "ALA", capital: "Mariehamn"}
-    ]
-};
-const store = createStore(rootReducer, initialState);
+const store = createStore(rootReducer);
 
 ReactDOM.render(
     <Provider store={store}>
