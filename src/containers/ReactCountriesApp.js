@@ -79,6 +79,7 @@ const mapDispatchToProps = dispatch => ({
         dispatch(setMessage(''));
     },
     handleCloseAddCountryDialog: () => dispatch(addCountryDialogOpened(false)),
+    // TODO
     /*handleAddCountry: () => {
         if (this.state.countryToAdd) {
             let addCountry = findIndex(this.state.countries, {'code': this.state.countryToAdd}) === -1;
