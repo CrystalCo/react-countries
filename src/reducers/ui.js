@@ -11,7 +11,7 @@ const ui = (state = {
         case 'ADD_COUNTRY_DIALOG_OPENED':
             let result = {...state, addCountryDialogOpened: action.opened};
             if (!action.opened) {
-                result.countryToAdd = '' // TODO - remove this, ref?
+                result.countryToAdd = ''
             }
             return result;
         case 'SET_MESSAGE':

@@ -34,8 +34,10 @@ const mapDispatchToProps = dispatch => ({
     },
     onCountryAdd: (code, allCountries) => {
         dispatch(addCountry(code, allCountries));
-        // TODO
+        // TODO - how to show message only in case something was really selected before Add? Need info from reducer..
         //dispatch(setMessage("Country has been added"));
+
+        // TODO - same problem, now I always close, but how to close when first dispatch is done and only if something added
         dispatch(addCountryDialogOpened(false))
     }
 });
