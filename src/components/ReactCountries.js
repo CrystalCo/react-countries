@@ -7,9 +7,9 @@ import Snackbar from 'material-ui/Snackbar';
 import CloseIcon from '@material-ui/icons/Close';
 import RcAddCountryDialog from "./RcAddCountryDialog";
 import RcList from "./RcList";
-import RcToolbar from "./RcToolbar";
 import logo from '../img/logo.svg';
 import GitHubRibbon from '../components/GitHubRibbon';
+import ToolbarContainer from "../containers/ToolbarContainer";
 
 export default function ReactCountries(props) {
     return (
@@ -21,11 +21,8 @@ export default function ReactCountries(props) {
             </header>
             <Paper className="RC" elevation={4}>
                 <RotatingEarth/>
-                <RcToolbar onlyVisited={props.ui.onlyVisited} onOnlyVisitedChange={props.handleOnlyVisitedChange}
-                           onDialogOpen={props.handleOpenAddCountryDialog}/>
-                <RcList countries={props.countries} onlyVisited={props.ui.onlyVisited}
-                        onCountryVisitedChange={props.handleCountryVisitedChange}
-                        onCountryDeleted={props.handleCountryDeleted}/>
+                <ToolbarContainer />
+                <RcList countries={props.countries} onlyVisited={props.ui.onlyVisited} onCountryVisitedChange={props.handleCountryVisitedChange} onCountryDeleted={props.handleCountryDeleted}/>
                 <RcAddCountryDialog open={props.ui.addCountryDialogOpened}
                                     suggestions={props.allCountries.map(country => ({
                                         value: country.alpha3Code.toLowerCase(),

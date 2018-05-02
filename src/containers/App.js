@@ -39,13 +39,11 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => ({
-    handleOpenAddCountryDialog: () => dispatch(addCountryDialogOpened(true)),
     handleCountryVisitedChange: code => dispatch(toggleCountry(code)),
     handleCountryDeleted: code => {
         dispatch(removeCountry(code));
         dispatch(setMessage("Country has been deleted"))
     },
-    handleOnlyVisitedChange: onlyVisited => dispatch(setOnlyVisited(onlyVisited)),
     handleMsgClose: (event, reason) => {
         if (reason === 'clickaway') {
             return;
@@ -56,6 +54,7 @@ const mapDispatchToProps = dispatch => ({
     handleAddCountry: (code, allCountries) => {
         dispatch(addCountry(code, allCountries));
 
+        // TODO
         //dispatch(setMessage("Country has been added"));
         dispatch(addCountryDialogOpened(false))
     },
