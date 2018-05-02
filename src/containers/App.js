@@ -2,14 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux'
 import CountryUtil from '../utils/CountryUtil'
 import ReactCountries from "../components/ReactCountries";
-import {
-    addCountry,
-    addCountryDialogOpened,
-    countryToAddChanged,
-    setAllCountries,
-    setCountries,
-    setMessage
-} from "../actions"
+import {setAllCountries, setCountries, setMessage} from "../actions"
 
 class App extends Component {
     /*constructor(props) {
@@ -41,19 +34,6 @@ const mapDispatchToProps = dispatch => ({
             return;
         }
         dispatch(setMessage(''));
-    },
-    handleCloseAddCountryDialog: () => dispatch(addCountryDialogOpened(false)),
-    handleAddCountry: (code, allCountries) => {
-        dispatch(addCountry(code, allCountries));
-
-        // TODO
-        //dispatch(setMessage("Country has been added"));
-        dispatch(addCountryDialogOpened(false))
-    },
-    handleCountryToAddChanged: country => {
-        if (country) {
-            dispatch(countryToAddChanged(country.toLowerCase()))
-        }
     },
     fetchAllCountries: () => {
         CountryUtil.getAllCountries().then(

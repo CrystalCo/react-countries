@@ -5,11 +5,11 @@ import Paper from 'material-ui/Paper';
 import IconButton from 'material-ui/IconButton';
 import Snackbar from 'material-ui/Snackbar';
 import CloseIcon from '@material-ui/icons/Close';
-import RcAddCountryDialog from "./RcAddCountryDialog";
 import logo from '../img/logo.svg';
 import GitHubRibbon from '../components/GitHubRibbon';
 import ToolbarContainer from "../containers/ToolbarContainer";
 import UserCountriesContainer from "../containers/UserCountriesContainer";
+import AddCountryContainer from "../containers/AddCountryContainer";
 
 export default function ReactCountries(props) {
     return (
@@ -23,17 +23,7 @@ export default function ReactCountries(props) {
                 <RotatingEarth/>
                 <ToolbarContainer/>
                 <UserCountriesContainer/>
-                <RcAddCountryDialog open={props.ui.addCountryDialogOpened}
-                                    suggestions={props.allCountries.map(country => ({
-                                        value: country.alpha3Code.toLowerCase(),
-                                        label: country.name
-                                    }))}
-                                    onDialogClose={props.handleCloseAddCountryDialog}
-                                    countryToAdd={props.ui.countryToAdd}
-                                    onCountryToAddChanged={props.handleCountryToAddChanged}
-                                    onCountryAdd={props.handleAddCountry}
-                                    allCountries={props.allCountries}
-                />
+                <AddCountryContainer/>
             </Paper>
             <Snackbar
                 anchorOrigin={{vertical: 'bottom', horizontal: 'left',}}
