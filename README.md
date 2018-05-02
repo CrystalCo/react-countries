@@ -12,4 +12,8 @@ Application is deployed on AWS using S3, CloudFront and custom (sub)domain name.
 
 Project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
+Pure React version without Redux can be found [here](https://github.com/vpetreski/react-countries/releases/tag/without-redux).
+
+Ongoing Redux version is on [development branch](https://github.com/vpetreski/react-countries/tree/development).
+
 [Here](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md) you will find some information on how to perform common tasks.
