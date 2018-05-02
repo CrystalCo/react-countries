@@ -1,29 +1,33 @@
 import React, {Component} from 'react';
+import { connect } from 'react-redux'
 import findIndex from 'lodash/findIndex'
 import sortedIndexBy from 'lodash/sortedIndexBy'
 import remove from 'lodash/remove'
 //import math from 'lodash/math';
 import CountryUtil from '../utils/CountryUtil'
 import ReactCountries from "../components/ReactCountries";
+import {addCountryDialogOpened, toggleCountry, removeCountry, setMessage, setOnlyVisited, addCountry, setCountries, countryToAddChanged} from "../actions"
 
 class ReactCountriesApp extends Component {
-    state = {
+    /*state = {
         countries: [],
+
         allCountries: [],
         allCountriesSuggestion: [],
-        onlyVisited: false,
 
+        onlyVisited: false,
         addCountryDialogOpened: false,
         countryToAdd: '',
         msgOpen: false,
         msg: ''
-    };
+    };*/
 
     /*constructor(props) {
         super(props);
     }*/
 
-    componentDidMount() {
+    // TODO
+    /*componentDidMount() {
         // "Fetching" user's countries from "DB"
         this.setState({
             countries: [
@@ -44,96 +48,69 @@ class ReactCountriesApp extends Component {
                 }),
             error => console.error(error)
         );
-    }
+    }*/
 
-    handleOnlyVisitedChange = (onlyVisited) => {
-        this.setState({
-            onlyVisited: onlyVisited
-        });
-    };
+    /*render() {
+        return (
+            <ReactCountries />
+        );
+    }*/
+}
 
-    handleCountryVisitedChange = (countryCode, visited) => {
-        this.setState((prevState, props) => {
-            let newState = {countries: [...prevState.countries]};
-            newState.countries[findIndex(newState.countries, {'code': countryCode})].visited = visited;
-            return newState;
-        });
-    };
 
-    handleCountryDeleted = (countryCode) => {
-        this.setState((prevState, props) => {
-            let newState = {countries: [...prevState.countries], msgOpen: true, msg: "Country has been deleted"};
-            remove(newState.countries, (country) => country.code === countryCode);
-            return newState;
-        });
-    };
+const mapStateToProps = state => {
+    //console.log(`ReactCountriesApp: ${JSON.stringify(state)}`);
 
-    handleAddCountry = () => {
-        if (this.state.countryToAdd) {
-            let addCountry = findIndex(this.state.countries, {'code': this.state.countryToAdd}) === -1;
-            if (addCountry) {
-                this.setState((prevState, props) => {
-                    let countryIndex = findIndex(this.state.allCountries, {'alpha3Code': this.state.countryToAdd.toUpperCase()});
-                    let country = this.state.allCountries[countryIndex];
-                    let newCountry = {
-                        code: country.alpha3Code.toLowerCase(),
-                        name: country.name,
-                        capital: country.capital,
-                        visited: false
-                    };
-                    let newCountries = [...prevState.countries];
-                    let newCountryIndex = sortedIndexBy(newCountries, newCountry, 'name');
-                    newCountries.splice(newCountryIndex, 0, newCountry);
-                    return {countries: newCountries, msgOpen: true, msg: "Country has been added"};
-                });
-            }
+    return {...state};
+};
 
-            this.handleCloseAddCountryDialog();
-        }
-    };
-
-    handleOpenAddCountryDialog = () => {
-        this.setState({
-            addCountryDialogOpened: true
-        })
-    };
-
-    handleCloseAddCountryDialog = () => {
-        this.setState({
-            addCountryDialogOpened: false,
-            countryToAdd: ''
-        })
-    };
-
-    handleCountryToAddChanged = (country) => {
-        if (country) {
-            this.setState({
-                countryToAdd: country.toLowerCase()
-            })
-        }
-    };
-
-    handleMsgClose = (event, reason) => {
+const mapDispatchToProps = dispatch => ({
+    handleOpenAddCountryDialog: () => dispatch(addCountryDialogOpened(true)),
+    handleCountryVisitedChange: code => dispatch(toggleCountry(code)),
+    handleCountryDeleted: code => {
+        dispatch(removeCountry(code));
+        dispatch(setMessage("Country has been deleted"))
+    },
+    handleOnlyVisitedChange: onlyVisited => dispatch(setOnlyVisited(onlyVisited)),
+    handleMsgClose: (event, reason) => {
         if (reason === 'clickaway') {
             return;
         }
+        dispatch(setMessage(''));
+    },
+    handleCloseAddCountryDialog: () => dispatch(addCountryDialogOpened(false)),
+    /*handleAddCountry: () => {
+        if (this.state.countryToAdd) {
+            let addCountry = findIndex(this.state.countries, {'code': this.state.countryToAdd}) === -1;
+            if (addCountry) {
+                let countryIndex = findIndex(this.state.allCountries, {'alpha3Code': this.state.countryToAdd.toUpperCase()});
+                let country = this.state.allCountries[countryIndex];
+                let newCountry = {
+                    code: country.alpha3Code.toLowerCase(),
+                    name: country.name,
+                    capital: country.capital,
+                    visited: false
+                };
+                let newCountries = [...prevState.countries];
+                let newCountryIndex = sortedIndexBy(newCountries, newCountry, 'name');
+                newCountries.splice(newCountryIndex, 0, newCountry);
 
-        this.setState({msgOpen: false, msg: ''});
-    };
+                dispatch(setCountries(newCountries));
+                dispatch(setMessage("Country has been added"));
+            }
 
-    render() {
-        const {allCountries, ...other} = this.state;
-
-        return (
-            <ReactCountries {...other} handleOpenAddCountryDialog={this.handleOpenAddCountryDialog}
-                            handleCountryVisitedChange={this.handleCountryVisitedChange}
-                            handleCountryDeleted={this.handleCountryDeleted}
-                            handleCloseAddCountryDialog={this.handleCloseAddCountryDialog}
-                            handleCountryToAddChanged={this.handleCountryToAddChanged}
-                            handleAddCountry={this.handleAddCountry} handleMsgClose={this.handleMsgClose}
-                            handleOnlyVisitedChange={this.handleOnlyVisitedChange}/>
-        );
+            dispatch(addCountryDialogOpened(false))
+        }
+    },*/
+    handleCountryToAddChanged: country => {
+        if (country) {
+            dispatch(countryToAddChanged(country.toLowerCase()))
+        }
     }
-}
+});
 
-export default ReactCountriesApp;
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(ReactCountries)
+

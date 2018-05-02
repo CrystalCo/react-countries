@@ -9,9 +9,20 @@ import rootReducer from './reducers';
 import logo from './logo.svg';
 import './index.css';
 import GitHubRibbon from './components/GitHubRibbon';
-//import registerServiceWorker from './registerServiceWorker';
 
-const store = createStore(rootReducer);
+//const store = createStore(rootReducer);
+
+// TODO - temp!
+const initialState = {
+    countries: [
+        {code: 'col', name: 'Colombia', capital: 'Bogota', visited: true},
+        {code: 'srb', name: 'Serbia', capital: 'Belgrade', visited: false}],
+    allCountries: [
+        {name: "Afghanistan", alpha3Code: "AFG", capital: "Kabul"},
+        {name: "Åland Islands", alpha3Code: "ALA", capital: "Mariehamn"}
+    ]
+};
+const store = createStore(rootReducer, initialState);
 
 ReactDOM.render(
     <Provider store={store}>
@@ -44,5 +55,3 @@ ReactDOM.render(
     </Provider>,
     document.getElementById('root')
 );
-
-//registerServiceWorker();

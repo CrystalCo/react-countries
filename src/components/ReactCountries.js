@@ -10,28 +10,33 @@ import RcList from "./RcList";
 import RcToolbar from "./RcToolbar";
 
 export default function ReactCountries(props) {
+    //console.log(`ReactCountries: ${JSON.stringify(props)}`);
+
     return (
         <Fragment>
             <Paper className="RC" elevation={4}>
                 <RotatingEarth/>
-                <RcToolbar onlyVisited={props.onlyVisited} onOnlyVisitedChange={props.handleOnlyVisitedChange}
+                <RcToolbar onlyVisited={props.ui.onlyVisited} onOnlyVisitedChange={props.handleOnlyVisitedChange}
                            onDialogOpen={props.handleOpenAddCountryDialog}/>
-                <RcList countries={props.countries} onlyVisited={props.onlyVisited}
+                <RcList countries={props.countries} onlyVisited={props.ui.onlyVisited}
                         onCountryVisitedChange={props.handleCountryVisitedChange}
                         onCountryDeleted={props.handleCountryDeleted}/>
-                <RcAddCountryDialog open={props.addCountryDialogOpened}
-                                    suggestions={props.allCountriesSuggestion}
+                <RcAddCountryDialog open={props.ui.addCountryDialogOpened}
+                                    suggestions={props.allCountries.map(country => ({
+                                        value: country.alpha3Code.toLowerCase(),
+                                        label: country.name
+                                    }))}
                                     onDialogClose={props.handleCloseAddCountryDialog}
-                                    countryToAdd={props.countryToAdd}
+                                    countryToAdd={props.ui.countryToAdd}
                                     onCountryToAddChanged={props.handleCountryToAddChanged}
                                     onCountryAdd={props.handleAddCountry}/>
             </Paper>
             <Snackbar
                 anchorOrigin={{vertical: 'bottom', horizontal: 'left',}}
-                open={props.msgOpen}
+                open={props.ui.msgOpen}
                 autoHideDuration={2000}
                 onClose={props.handleMsgClose}
-                message={<span id="message-id">{props.msg}</span>}
+                message={<span id="message-id">{props.ui.msg}</span>}
                 action={[
                     <IconButton key="close" color="inherit" onClick={props.handleMsgClose}>
                         <CloseIcon/>
