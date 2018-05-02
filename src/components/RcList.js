@@ -3,22 +3,13 @@ import Paper from 'material-ui/Paper';
 import List from 'material-ui/List';
 import RcRow from "./RcRow";
 
-export default function RcList(props) {
-    const rows = [];
-    const onlyVisited = props.onlyVisited;
-
-    props.countries.forEach((country) => {
-        if (country.visited || !onlyVisited) {
-            rows.push(
-                <RcRow country={country} key={country.code} onCountryVisitedChange={props.onCountryVisitedChange} onCountryDeleted={props.onCountryDeleted}/>
-            );
-        }
-    });
-
+export default function RcList({countries, onCountryVisitedChange, onCountryDeleted}) {
     return (
         <Paper elevation={1}>
             <List className="RC-list">
-                {rows}
+                {countries.map(country =>
+                    <RcRow key={country.code} {...country} onCountryVisitedChange={onCountryVisitedChange} onCountryDeleted={onCountryDeleted}/>
+                )}
             </List>
         </Paper>
     );

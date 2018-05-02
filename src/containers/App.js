@@ -6,12 +6,9 @@ import {
     addCountry,
     addCountryDialogOpened,
     countryToAddChanged,
-    removeCountry,
     setAllCountries,
     setCountries,
-    setMessage,
-    setOnlyVisited,
-    toggleCountry
+    setMessage
 } from "../actions"
 
 class App extends Component {
@@ -39,11 +36,6 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => ({
-    handleCountryVisitedChange: code => dispatch(toggleCountry(code)),
-    handleCountryDeleted: code => {
-        dispatch(removeCountry(code));
-        dispatch(setMessage("Country has been deleted"))
-    },
     handleMsgClose: (event, reason) => {
         if (reason === 'clickaway') {
             return;
