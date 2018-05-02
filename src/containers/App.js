@@ -25,16 +25,13 @@ class App extends Component {
 
 
 const mapStateToProps = state => {
-    return {...state};
+    return {
+        msg: state.ui.msg,
+        msgOpen: state.ui.msgOpen
+    };
 };
 
 const mapDispatchToProps = dispatch => ({
-    handleMsgClose: (event, reason) => {
-        if (reason === 'clickaway') {
-            return;
-        }
-        dispatch(setMessage(''));
-    },
     fetchAllCountries: () => {
         CountryUtil.getAllCountries().then(
             allCountriesJson => dispatch(setAllCountries(allCountriesJson)),
@@ -47,6 +44,12 @@ const mapDispatchToProps = dispatch => ({
             {code: 'col', name: 'Colombia', capital: 'Bogota', visited: true},
             {code: 'srb', name: 'Serbia', capital: 'Belgrade', visited: false}
         ]))
+    },
+    handleMsgClose: (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        dispatch(setMessage(''));
     }
 });
 

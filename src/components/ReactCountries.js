@@ -11,7 +11,7 @@ import ToolbarContainer from "../containers/ToolbarContainer";
 import UserCountriesContainer from "../containers/UserCountriesContainer";
 import AddCountryContainer from "../containers/AddCountryContainer";
 
-export default function ReactCountries(props) {
+export default function ReactCountries({msg, msgOpen, handleMsgClose}) {
     return (
         <div>
             <header className="RC-header">
@@ -27,12 +27,12 @@ export default function ReactCountries(props) {
             </Paper>
             <Snackbar
                 anchorOrigin={{vertical: 'bottom', horizontal: 'left',}}
-                open={props.ui.msgOpen}
+                open={msgOpen}
                 autoHideDuration={2000}
-                onClose={props.handleMsgClose}
-                message={<span id="message-id">{props.ui.msg}</span>}
+                onClose={handleMsgClose}
+                message={<span id="message-id">{msg}</span>}
                 action={[
-                    <IconButton key="close" color="inherit" onClick={props.handleMsgClose}>
+                    <IconButton key="close" color="inherit" onClick={handleMsgClose}>
                         <CloseIcon/>
                     </IconButton>,
                 ]}
