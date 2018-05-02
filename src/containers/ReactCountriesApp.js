@@ -79,30 +79,12 @@ const mapDispatchToProps = dispatch => ({
         dispatch(setMessage(''));
     },
     handleCloseAddCountryDialog: () => dispatch(addCountryDialogOpened(false)),
-    // TODO
-    /*handleAddCountry: () => {
-        if (this.state.countryToAdd) {
-            let addCountry = findIndex(this.state.countries, {'code': this.state.countryToAdd}) === -1;
-            if (addCountry) {
-                let countryIndex = findIndex(this.state.allCountries, {'alpha3Code': this.state.countryToAdd.toUpperCase()});
-                let country = this.state.allCountries[countryIndex];
-                let newCountry = {
-                    code: country.alpha3Code.toLowerCase(),
-                    name: country.name,
-                    capital: country.capital,
-                    visited: false
-                };
-                let newCountries = [...prevState.countries];
-                let newCountryIndex = sortedIndexBy(newCountries, newCountry, 'name');
-                newCountries.splice(newCountryIndex, 0, newCountry);
+    handleAddCountry: (code, allCountries) => {
+        dispatch(addCountry(code, allCountries));
 
-                dispatch(setCountries(newCountries));
-                dispatch(setMessage("Country has been added"));
-            }
-
-            dispatch(addCountryDialogOpened(false))
-        }
-    },*/
+        //dispatch(setMessage("Country has been added"));
+        dispatch(addCountryDialogOpened(false))
+    },
     handleCountryToAddChanged: country => {
         if (country) {
             dispatch(countryToAddChanged(country.toLowerCase()))

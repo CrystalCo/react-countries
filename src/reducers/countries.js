@@ -5,7 +5,34 @@ import sortedIndexBy from "lodash/sortedIndexBy";
 const countries = (state = [], action) => {
     switch (action.type) {
         case 'ADD_COUNTRY':
-            return []; // TODO
+            const allCountries = action.allCountries;
+            const countryToAdd = action.countryToAdd;
+
+            if (countryToAdd) {
+                let addCountry = findIndex(state, {'code': countryToAdd}) === -1;
+
+                if (addCountry) {
+                    let countryIndex = findIndex(allCountries, {'alpha3Code': countryToAdd.toUpperCase()});
+                    let country = allCountries[countryIndex];
+                    let newCountry = {
+                        code: country.alpha3Code.toLowerCase(),
+                        name: country.name,
+                        capital: country.capital,
+                        visited: false
+                    };
+                    let newCountries = [...state];
+                    let newCountryIndex = sortedIndexBy(newCountries, newCountry, 'name');
+                    newCountries.splice(newCountryIndex, 0, newCountry);
+
+                    console.log(newCountries);
+
+                    return newCountries;
+                    //dispatch(setMessage("Country has been added"));
+                }
+
+                //dispatch(addCountryDialogOpened(false))
+            }
+            return state;
         case 'REMOVE_COUNTRY':
             let index = findIndex(state, {'code': action.code});
             return [

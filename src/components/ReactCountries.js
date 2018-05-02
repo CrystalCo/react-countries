@@ -29,7 +29,9 @@ export default function ReactCountries(props) {
                                     onDialogClose={props.handleCloseAddCountryDialog}
                                     countryToAdd={props.ui.countryToAdd}
                                     onCountryToAddChanged={props.handleCountryToAddChanged}
-                                    onCountryAdd={props.handleAddCountry}/>
+                                    onCountryAdd={props.handleAddCountry}
+                                    allCountries={props.allCountries}
+                />
             </Paper>
             <Snackbar
                 anchorOrigin={{vertical: 'bottom', horizontal: 'left',}}

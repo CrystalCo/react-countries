@@ -13,7 +13,7 @@ export default function RcAddCountryDialog(props) {
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={props.onDialogClose} color="primary">Cancel</Button>
-                    <Button onClick={props.onCountryAdd} color="primary">Add</Button>
+                    <Button onClick={() => props.onCountryAdd(props.countryToAdd, props.allCountries)} color="primary">Add</Button>
                 </DialogActions>
             </Dialog>
         </div>

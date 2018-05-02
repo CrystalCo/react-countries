@@ -1,8 +1,9 @@
 // Countries
 
-export const addCountry = code => ({
+export const addCountry = (countryToAdd, allCountries) => ({
     type: 'ADD_COUNTRY',
-    code
+    countryToAdd,
+    allCountries
 });
 
 export const removeCountry = code => ({
