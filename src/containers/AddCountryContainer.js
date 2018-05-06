@@ -8,15 +8,13 @@ import {
     toggleCountry
 } from "../actions"
 import RcAddCountryDialog from "../components/RcAddCountryDialog";
+import {getAddCountryDialogOpened, getAllCountries, getCountryToAdd, getSuggestions} from '../reducers'
 
 const mapStateToProps = state => ({
-    open: state.ui.addCountryDialogOpened,
-    suggestions: state.allCountries.map(country => ({
-        value: country.alpha3Code.toLowerCase(),
-        label: country.name
-    })),
-    allCountries: state.allCountries,
-    countryToAdd: state.ui.countryToAdd
+    open: getAddCountryDialogOpened(state),
+    countryToAdd: getCountryToAdd(state),
+    suggestions: getSuggestions(state),
+    allCountries: getAllCountries(state)
 });
 
 const mapDispatchToProps = dispatch => ({

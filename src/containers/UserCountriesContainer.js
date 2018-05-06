@@ -1,9 +1,10 @@
 import {connect} from 'react-redux'
 import {removeCountry, setMessage, toggleCountry} from "../actions"
 import RcList from "../components/RcList";
+import { getVisibleCountries } from '../reducers';
 
 const mapStateToProps = state => ({
-    countries: state.countries.filter(c => c.visited || !state.ui.onlyVisited)
+    countries: getVisibleCountries(state)
 });
 
 const mapDispatchToProps = dispatch => ({

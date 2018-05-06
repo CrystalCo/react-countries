@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import CountryUtil from '../utils/CountryUtil'
 import ReactCountries from "../components/ReactCountries";
 import {setAllCountries, setCountries, setMessage} from "../actions"
+import {getMsg, getMsgOpen} from '../reducers'
 
 class App extends Component {
     /*constructor(props) {
@@ -25,8 +26,8 @@ class App extends Component {
 
 const mapStateToProps = state => {
     return {
-        msg: state.ui.msg,
-        msgOpen: state.ui.msgOpen
+        msg: getMsg(state),
+        msgOpen: getMsgOpen(state)
     };
 };
 

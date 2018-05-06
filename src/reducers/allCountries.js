@@ -8,3 +8,14 @@ const allCountries = (state = [], action) => {
 };
 
 export default allCountries;
+
+export const getAllCountries = (state) => {
+    return state;
+};
+
+export const getSuggestions = (state) => {
+    return state.map(country => ({
+        value: country.alpha3Code.toLowerCase(),
+        label: country.name
+    }))
+};

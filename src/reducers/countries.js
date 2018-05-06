@@ -50,3 +50,7 @@ const countries = (state = [], action) => {
 };
 
 export default countries;
+
+export const getVisibleCountries = (state, onlyVisited) => {
+    return state.filter(c => c.visited || !onlyVisited)
+};
