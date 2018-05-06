@@ -1,9 +1,18 @@
+import * as api from '../api'
+
 // Countries
 
-export const setCountries = userCountries => ({
+const setCountries = userCountries => ({
     type: 'SET_COUNTRIES',
     userCountries
 });
+
+export const fetchUserCountries = () =>
+    api.fetchUserCountries().then(
+        userCountries => setCountries(userCountries),
+        error => console.error(error)
+    );
+
 
 export const addCountry = (countryToAdd, allCountries) => ({
     type: 'ADD_COUNTRY',
@@ -23,10 +32,16 @@ export const toggleCountry = code => ({
 
 // All Countries
 
-export const setAllCountries = allCountries => ({
+const setAllCountries = allCountries => ({
     type: 'SET_ALL_COUNTRIES',
     allCountries
 });
+
+export const fetchAllCountries = () =>
+    api.fetchAllCountries().then(
+        allCountries => setAllCountries(allCountries),
+        error => console.error(error)
+    );
 
 // UI State
 

@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux'
-import {fetchAllCountries, fetchUserCountries} from '../api'
 import ReactCountries from "../components/ReactCountries";
-import {setAllCountries, setCountries, setMessage} from "../actions"
+import {fetchAllCountries, fetchUserCountries, setMessage} from "../actions"
 import {getMsg, getMsgOpen} from '../reducers'
 
 class App extends Component {
@@ -11,9 +10,7 @@ class App extends Component {
     }*/
 
     componentDidMount() {
-        // Fetch all countries
         this.props.getAllCountries();
-        // "Fetching" user's countries from "DB"
         this.props.getUserCountries();
     }
 
@@ -32,18 +29,8 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => ({
-    getAllCountries: () => {
-        fetchAllCountries().then(
-            allCountriesJson => dispatch(setAllCountries(allCountriesJson)),
-            error => console.error(error)
-        );
-    },
-    getUserCountries: () => {
-        fetchUserCountries().then(
-            userCountries => dispatch(setCountries(userCountries)),
-            error => console.error(error)
-        );
-    },
+    getAllCountries: () => dispatch(fetchAllCountries()),
+    getUserCountries: () => dispatch(fetchUserCountries()),
     handleMsgClose: (event, reason) => {
         if (reason === 'clickaway') {
             return;
