@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux'
-import CountryUtil from '../utils/CountryUtil'
+import {fetchAllCountries, fetchUserCountries} from '../api'
 import ReactCountries from "../components/ReactCountries";
 import {setAllCountries, setCountries, setMessage} from "../actions"
 import {getMsg, getMsgOpen} from '../reducers'
@@ -12,9 +12,9 @@ class App extends Component {
 
     componentDidMount() {
         // Fetch all countries
-        this.props.fetchAllCountries();
+        this.props.getAllCountries();
         // "Fetching" user's countries from "DB"
-        this.props.fetchUserCountries();
+        this.props.getUserCountries();
     }
 
     render() {
@@ -32,18 +32,17 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => ({
-    fetchAllCountries: () => {
-        CountryUtil.getAllCountries().then(
+    getAllCountries: () => {
+        fetchAllCountries().then(
             allCountriesJson => dispatch(setAllCountries(allCountriesJson)),
             error => console.error(error)
         );
     },
-    fetchUserCountries: () => {
-        dispatch(setCountries([
-            {code: 'bra', name: 'Brazil', capital: 'Brazilia', visited: false},
-            {code: 'col', name: 'Colombia', capital: 'Bogota', visited: true},
-            {code: 'srb', name: 'Serbia', capital: 'Belgrade', visited: false}
-        ]))
+    getUserCountries: () => {
+        fetchUserCountries().then(
+            userCountries => dispatch(setCountries(userCountries)),
+            error => console.error(error)
+        );
     },
     handleMsgClose: (event, reason) => {
         if (reason === 'clickaway') {
