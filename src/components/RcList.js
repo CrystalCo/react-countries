@@ -4,14 +4,22 @@ import List from 'material-ui/List';
 import RcRow from "./RcRow";
 import Loading from "./Loading";
 
-export default function RcList({countries, onCountryVisitedChange, onCountryDeleted}) {
+export default function RcList({countries, onCountryVisitedChange, onCountryDeleted, isFetching}) {
+    console.log("Is fetching " + isFetching);
+
+    const content = isFetching ? (
+        <Loading/>
+    ) : (
+        countries.map(country =>
+            <RcRow key={country.code} {...country} onCountryVisitedChange={onCountryVisitedChange}
+                   onCountryDeleted={onCountryDeleted}/>
+        )
+    );
+
     return (
         <Paper elevation={1}>
             <List className="RC-list">
-                {/*<Loading />*/}
-                {countries.map(country =>
-                    <RcRow key={country.code} {...country} onCountryVisitedChange={onCountryVisitedChange} onCountryDeleted={onCountryDeleted}/>
-                )}
+                {content}
             </List>
         </Paper>
     );

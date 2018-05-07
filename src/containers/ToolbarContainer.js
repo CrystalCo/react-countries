@@ -1,7 +1,13 @@
 import {connect} from 'react-redux'
-import {addCountryDialogOpened, setOnlyVisited, fetchUserCountries, setCountries} from "../actions"
+import {
+    addCountryDialogOpened,
+    fetchUserCountries,
+    requestUserCountries,
+    setCountries,
+    setOnlyVisited
+} from "../actions"
 import RcToolbar from "../components/RcToolbar";
-import {getOnlyVisited} from '../reducers';
+import {getOnlyVisited,} from '../reducers';
 
 const mapStateToProps = state => ({
     onlyVisited: getOnlyVisited(state)
@@ -11,6 +17,7 @@ const mapDispatchToProps = dispatch => ({
     onOnlyVisitedChange: onlyVisited => {
         dispatch(setOnlyVisited(onlyVisited));
         dispatch(setCountries([])); // Calling this to clear the table immediately
+        dispatch(requestUserCountries());
         dispatch(fetchUserCountries(onlyVisited));
     },
 

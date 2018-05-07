@@ -1,3 +1,4 @@
+import {combineReducers} from 'redux';
 import indexOf from "lodash/indexOf";
 import findIndex from "lodash/findIndex";
 import sortedIndexBy from "lodash/sortedIndexBy";
@@ -39,6 +40,23 @@ const ids = (state = [], action) => {
     }
 };
 
-export default ids;
+const isFetching = (state = false, action) => {
+    switch (action.type) {
+        case 'REQUEST_USER_COUNTRIES':
+            return true;
+        case 'SET_COUNTRIES':
+            return false;
+        default:
+            return state;
+    }
+};
 
-export const getIds = (state) => state;
+export default combineReducers({
+    ids,
+    isFetching
+})
+
+
+export const getIds = (state) => state.ids;
+
+export const getIsFetching = state => state.isFetching;

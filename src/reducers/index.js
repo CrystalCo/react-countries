@@ -2,6 +2,7 @@ import {combineReducers} from 'redux'
 import countries, * as fromCountries from './countries'
 import allCountries, * as fromAllCountries from "./allCountries";
 import ui, * as fromUi from "./ui";
+import * as fromList from "./list";
 
 export default combineReducers({
     countries,
@@ -11,6 +12,7 @@ export default combineReducers({
 
 // Countries
 export const getVisibleCountries = (state) => fromCountries.getVisibleCountries(state.countries);
+export const getIsFetching = (state) => fromCountries.getIsFetching(state.countries);
 
 // All Countries
 export const getAllCountries = (state) => fromAllCountries.getAllCountries(state.allCountries);

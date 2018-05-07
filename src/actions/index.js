@@ -7,6 +7,10 @@ export const setCountries = userCountries => ({
     userCountries
 });
 
+export const requestUserCountries = () => ({
+    type: 'REQUEST_USER_COUNTRIES'
+});
+
 export const fetchUserCountries = (onlyVisited) =>
     api.fetchUserCountries(onlyVisited).then(
         userCountries => setCountries(userCountries),
