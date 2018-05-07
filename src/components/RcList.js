@@ -10,10 +10,7 @@ export default function RcList({countries, onCountryVisitedChange, onCountryDele
     const content = isFetching ? (
         <Loading/>
     ) : (
-        countries.map(country =>
-            <RcRow key={country.code} {...country} onCountryVisitedChange={onCountryVisitedChange}
-                   onCountryDeleted={onCountryDeleted}/>
-        )
+        countries.map(country => <RcRow key={country.code} {...country} onCountryVisitedChange={onCountryVisitedChange} onCountryDeleted={onCountryDeleted}/>)
     );
 
     return (

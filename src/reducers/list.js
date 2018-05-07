@@ -58,5 +58,4 @@ export default combineReducers({
 
 
 export const getIds = (state) => state.ids;
-
 export const getIsFetching = state => state.isFetching;

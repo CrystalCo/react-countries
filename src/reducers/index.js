@@ -2,7 +2,6 @@ import {combineReducers} from 'redux'
 import countries, * as fromCountries from './countries'
 import allCountries, * as fromAllCountries from "./allCountries";
 import ui, * as fromUi from "./ui";
-import * as fromList from "./list";
 
 export default combineReducers({
     countries,
