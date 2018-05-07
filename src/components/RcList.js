@@ -5,8 +5,6 @@ import RcRow from "./RcRow";
 import Loading from "./Loading";
 
 export default function RcList({countries, onCountryVisitedChange, onCountryDeleted, isFetching}) {
-    console.log("Is fetching " + isFetching);
-
     const content = isFetching ? (
         <Loading/>
     ) : (
