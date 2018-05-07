@@ -2,17 +2,16 @@ import * as api from '../api'
 
 // Countries
 
-const setCountries = userCountries => ({
+export const setCountries = userCountries => ({
     type: 'SET_COUNTRIES',
     userCountries
 });
 
-export const fetchUserCountries = () =>
-    api.fetchUserCountries().then(
+export const fetchUserCountries = (onlyVisited) =>
+    api.fetchUserCountries(onlyVisited).then(
         userCountries => setCountries(userCountries),
         error => console.error(error)
     );
-
 
 export const addCountry = (countryToAdd, allCountries) => ({
     type: 'ADD_COUNTRY',

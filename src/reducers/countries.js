@@ -19,7 +19,7 @@ const byId = (state = {}, action) => {
                     code: country.alpha3Code.toLowerCase(),
                     name: country.name,
                     capital: country.capital,
-                    visited: false
+                    visited: true
                 };
                 return {
                     ...state,
@@ -42,7 +42,7 @@ const byId = (state = {}, action) => {
     }
 };
 
-const allIds = (state = [], action) => {
+const ids = (state = [], action) => {
     switch (action.type) {
         case 'SET_COUNTRIES':
             return action.userCountries.map(c => c.code);
@@ -81,14 +81,11 @@ const allIds = (state = [], action) => {
 
 const countries = combineReducers({
     byId,
-    allIds,
+    ids,
 });
 
 export default countries;
 
-const getAllUserCountries = (state) => state.allIds.map(id => state.byId[id]);
-
-export const getVisibleCountries = (state, onlyVisited) => {
-    const allUserCountries = getAllUserCountries(state);
-    return allUserCountries.filter(c => c.visited || !onlyVisited)
+export const getVisibleCountries = (state) => {
+    return state.ids.map(id => state.byId[id])
 };

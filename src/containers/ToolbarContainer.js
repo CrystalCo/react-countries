@@ -1,5 +1,5 @@
 import {connect} from 'react-redux'
-import {addCountryDialogOpened, setOnlyVisited} from "../actions"
+import {addCountryDialogOpened, setOnlyVisited, fetchUserCountries, setCountries} from "../actions"
 import RcToolbar from "../components/RcToolbar";
 import {getOnlyVisited} from '../reducers';
 
@@ -8,10 +8,10 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    /*onOnlyVisitedChange: onlyVisited => dispatch(setOnlyVisited(onlyVisited)),*/
-    // Another option without arrow function
-    onOnlyVisitedChange(onlyVisited) {
-        dispatch(setOnlyVisited(onlyVisited))
+    onOnlyVisitedChange: onlyVisited => {
+        dispatch(setOnlyVisited(onlyVisited));
+        dispatch(setCountries([])); // Calling this to clear the table immediately
+        dispatch(fetchUserCountries(onlyVisited));
     },
 
     onDialogOpen: () => dispatch(addCountryDialogOpened(true))

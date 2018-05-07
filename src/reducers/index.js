@@ -10,7 +10,7 @@ export default combineReducers({
 })
 
 // Countries
-export const getVisibleCountries = (state) => fromCountries.getVisibleCountries(state.countries, getOnlyVisited(state));
+export const getVisibleCountries = (state) => fromCountries.getVisibleCountries(state.countries);
 
 // All Countries
 export const getAllCountries = (state) => fromAllCountries.getAllCountries(state.allCountries);

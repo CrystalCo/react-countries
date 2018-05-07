@@ -1,5 +1,5 @@
 const ui = (state = {
-    onlyVisited: false,
+    onlyVisited: true,
     addCountryDialogOpened: false,
     countryToAdd: '',
     msgOpen: false,

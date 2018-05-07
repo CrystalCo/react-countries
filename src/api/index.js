@@ -13,6 +13,8 @@ const fakeDatabase = {
 
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
-export const fetchUserCountries = () => delay(500).then(() => fakeDatabase.userCountries);
+export const fetchUserCountries = (onlyVisited) => delay(500).then(() =>
+    fakeDatabase.userCountries.filter(c => c.visited || !onlyVisited)
+);
 
 export const fetchAllCountries = () => fetch(`${REST_COUNTRIES_API_URL}all`).then(result => result.json());
