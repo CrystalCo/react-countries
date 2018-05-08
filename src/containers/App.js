@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux'
 import ReactCountries from "../components/ReactCountries";
-import {fetchAllCountries, fetchUserCountries, setMessage} from "../actions"
+import {fetchCountriesSuggestion, fetchUserCountries, setMessage} from "../actions"
 import {getMsg, getMsgOpen, getOnlyVisited} from '../reducers'
 
 class App extends Component {
@@ -14,8 +14,8 @@ class App extends Component {
     }
 
     fetchData() {
-        const {onlyVisited, getAllCountries, getUserCountries} = this.props;
-        getAllCountries();
+        const {onlyVisited, getCountriesSuggestion, getUserCountries} = this.props;
+        getCountriesSuggestion();
         getUserCountries(onlyVisited);
     }
 
@@ -35,7 +35,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => ({
-    getAllCountries: () => dispatch(fetchAllCountries()),
+    getCountriesSuggestion: () => dispatch(fetchCountriesSuggestion()),
     getUserCountries: (onlyVisited) => dispatch(fetchUserCountries(onlyVisited)),
     handleMsgClose: (event, reason) => {
         if (reason === 'clickaway') {

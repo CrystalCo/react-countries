@@ -62,7 +62,7 @@ const setAllCountriesSuggestion = allCountries => ({
     allCountries
 });
 
-export const fetchAllCountries = () => api.fetchAllCountries().then(allCountries => setAllCountriesSuggestion(allCountries));
+export const fetchCountriesSuggestion = () => api.fetchAllCountries().then(allCountries => setAllCountriesSuggestion(allCountries));
 
 // UI State
 
