@@ -12,6 +12,7 @@ export default combineReducers({
 // Countries
 export const getVisibleCountries = (state) => fromCountries.getVisibleCountries(state.countries);
 export const getIsFetching = (state) => fromCountries.getIsFetching(state.countries);
+export const getErrorMessage = (state) => fromCountries.getErrorMessage(state.countries);
 
 // All Countries
 export const getAllCountries = (state) => fromAllCountries.getAllCountries(state.allCountries);

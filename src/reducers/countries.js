@@ -15,3 +15,5 @@ export const getVisibleCountries = (state) => {
 };
 
 export const getIsFetching = (state) => fromList.getIsFetching(state.list);
+
+export const getErrorMessage = (state) => fromList.getErrorMessage(state.list);

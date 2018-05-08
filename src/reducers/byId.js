@@ -3,7 +3,7 @@ import keyBy from "lodash/keyBy";
 
 const byId = (state = {}, action) => {
     switch (action.type) {
-        case 'SET_COUNTRIES':
+        case 'FETCH_COUNTRIES_SUCCESS':
             return keyBy(action.userCountries, c => c.code);
         case 'ADD_COUNTRY':
             const allCountries = action.allCountries;

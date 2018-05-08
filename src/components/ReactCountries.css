@@ -62,3 +62,7 @@
     margin-right: -50%;
     transform: translate(-50%, -50%)
 }
+
+.RC-error {
+    margin-left: 10px;
+}

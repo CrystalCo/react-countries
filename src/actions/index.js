@@ -1,36 +1,42 @@
 import * as api from '../api'
-import { getIsFetching } from '../reducers';
+import {getIsFetching} from '../reducers';
 
 // Countries
-
-export const setCountries = userCountries => ({
-    type: 'SET_COUNTRIES',
-    userCountries
-});
-
-const requestUserCountries = () => ({
-    type: 'REQUEST_USER_COUNTRIES'
-});
 
 // Promise middleware version
 /*export const fetchUserCountries = (onlyVisited) =>
     api.fetchUserCountries(onlyVisited).then(
-        userCountries => setCountries(userCountries),
+        userCountries => {
+            type: 'FETCH_COUNTRIES_SUCCESS',
+            userCountries
+        },
         error => console.error(error)
     );*/
 
 // Thunk middleware version
-export const fetchUserCountries = (onlyVisited)  => (dispatch, getState) => {
+export const fetchUserCountries = (onlyVisited) => (dispatch, getState) => {
     // Race condition protection
     /*if (getIsFetching(getState())) {
         return Promise.resolve();
     }*/
 
-    dispatch(requestUserCountries());
+    dispatch({
+        type: 'FETCH_COUNTRIES_REQUEST'
+    });
 
     return api.fetchUserCountries(onlyVisited).then(
-        userCountries => dispatch(setCountries(userCountries)),
-        error => console.error(error)
+        userCountries => dispatch({
+            type: 'FETCH_COUNTRIES_SUCCESS',
+            userCountries
+        }),
+        error => {
+            console.error(error);
+            dispatch({
+                type: 'FETCH_COUNTRIES_FAILURE',
+                onlyVisited,
+                message: error.message || 'Something went wrong.'
+            });
+        }
     );
 };
 
