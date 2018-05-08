@@ -6,7 +6,7 @@ const byId = (state = {}, action) => {
         case 'FETCH_COUNTRIES_SUCCESS':
             return keyBy(action.userCountries, c => c.code);
         case 'ADD_COUNTRY':
-            const allCountries = action.allCountries;
+            const allCountries = action.allCountries; // TODO - will move from here
             const countryToAddCode = action.countryToAdd;
 
             if (countryToAddCode) {

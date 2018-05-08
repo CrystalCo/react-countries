@@ -8,13 +8,12 @@ import {
     toggleCountry
 } from "../actions"
 import RcAddCountryDialog from "../components/RcAddCountryDialog";
-import {getAddCountryDialogOpened, getAllCountries, getCountryToAdd, getSuggestions} from '../reducers'
+import {getAddCountryDialogOpened, getCountryToAdd, getSuggestions} from '../reducers'
 
 const mapStateToProps = state => ({
     open: getAddCountryDialogOpened(state),
     countryToAdd: getCountryToAdd(state),
-    suggestions: getSuggestions(state),
-    allCountries: getAllCountries(state)
+    suggestions: getSuggestions(state)
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -30,8 +29,8 @@ const mapDispatchToProps = dispatch => ({
             dispatch(countryToAddChanged(country.toLowerCase()))
         }
     },
-    onCountryAdd: (code, allCountries) => {
-        dispatch(addCountry(code, allCountries));
+    onCountryAdd: (code) => {
+        dispatch(addCountry(code));
         // TODO - how to show message only in case something was really selected before Add? Need info from reducer..
         //dispatch(setMessage("Country has been added"));
 

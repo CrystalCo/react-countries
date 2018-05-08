@@ -40,10 +40,9 @@ export const fetchUserCountries = (onlyVisited) => (dispatch, getState) => {
     );
 };
 
-export const addCountry = (countryToAdd, allCountries) => ({
+export const addCountry = (countryToAdd) => ({
     type: 'ADD_COUNTRY',
-    countryToAdd,
-    allCountries
+    countryToAdd
 });
 
 export const removeCountry = code => ({
