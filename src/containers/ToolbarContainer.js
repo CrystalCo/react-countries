@@ -10,7 +10,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     onOnlyVisitedChange: onlyVisited => {
         dispatch(setOnlyVisited(onlyVisited));
-        dispatch(setCountries([])); // Calling this to clear the table immediately
         dispatch(fetchUserCountries(onlyVisited));
     },
 
