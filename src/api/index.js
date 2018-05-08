@@ -2,6 +2,9 @@
 
 const REST_COUNTRIES_API_URL = "https://restcountries.eu/rest/v2/";
 
+// Cache all countries here from external API call
+let allCountriesCache = [];
+
 // This is a fake in-memory implementation of something that would be implemented by calling a REST server.
 const fakeDatabase = {
     userCountries: [
@@ -13,7 +16,15 @@ const fakeDatabase = {
 
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
-export const fetchAllCountries = () => fetch(`${REST_COUNTRIES_API_URL}all`).then(result => result.json());
+export const fetchAllCountries = () => allCountriesCache.length === 0 ?
+    fetch(`${REST_COUNTRIES_API_URL}all`).then(result => result.json()).then(
+        allCountries => {
+            allCountriesCache = allCountries;
+            return allCountriesCache;
+        },
+        error => console.error(error)
+    ) :
+    Promise.resolve(allCountriesCache);
 
 export const fetchUserCountries = (onlyVisited) => delay(500).then(() => {
         if (Math.random() > 0.5) {
@@ -37,7 +48,7 @@ export const addUserCountry = (code) =>
     });
 
 // TODO
-export const toggleCountry = (code) =>
+export const toggleUserCountry = (code) =>
     delay(500).then(() => {
         const country = fakeDatabase.userCountries.find(c => c.code === code);
         country.visited = !country.visited;

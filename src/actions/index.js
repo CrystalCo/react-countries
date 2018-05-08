@@ -57,16 +57,12 @@ export const toggleCountry = code => ({
 
 // All Countries
 
-const setAllCountries = allCountries => ({
-    type: 'SET_ALL_COUNTRIES',
+const setAllCountriesSuggestion = allCountries => ({
+    type: 'SET_ALL_COUNTRIES_SUGGESTION',
     allCountries
 });
 
-export const fetchAllCountries = () =>
-    api.fetchAllCountries().then(
-        allCountries => setAllCountries(allCountries),
-        error => console.error(error)
-    );
+export const fetchAllCountries = () => api.fetchAllCountries().then(allCountries => setAllCountriesSuggestion(allCountries));
 
 // UI State
 
