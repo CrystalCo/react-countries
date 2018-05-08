@@ -1,4 +1,5 @@
 import * as api from '../api'
+import { getIsFetching } from '../reducers';
 
 // Countries
 
@@ -7,15 +8,30 @@ export const setCountries = userCountries => ({
     userCountries
 });
 
-export const requestUserCountries = () => ({
+const requestUserCountries = () => ({
     type: 'REQUEST_USER_COUNTRIES'
 });
 
-export const fetchUserCountries = (onlyVisited) =>
+// Promise middleware version
+/*export const fetchUserCountries = (onlyVisited) =>
     api.fetchUserCountries(onlyVisited).then(
         userCountries => setCountries(userCountries),
         error => console.error(error)
+    );*/
+
+// Thunk middleware version
+export const fetchUserCountries = (onlyVisited)  => (dispatch, getState) => {
+    if (getIsFetching(getState())) {
+        return Promise.resolve();
+    }
+
+    dispatch(requestUserCountries());
+
+    return api.fetchUserCountries(onlyVisited).then(
+        userCountries => dispatch(setCountries(userCountries)),
+        error => console.error(error)
     );
+};
 
 export const addCountry = (countryToAdd, allCountries) => ({
     type: 'ADD_COUNTRY',

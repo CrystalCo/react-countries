@@ -1,5 +1,3 @@
-import v4 from 'uuid/v4';
-
 const REST_COUNTRIES_API_URL = "https://restcountries.eu/rest/v2/";
 
 // This is a fake in-memory implementation of something that would be implemented by calling a REST server.
@@ -13,7 +11,7 @@ const fakeDatabase = {
 
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
-export const fetchUserCountries = (onlyVisited) => delay(500).then(() =>
+export const fetchUserCountries = (onlyVisited) => delay(5000).then(() =>
     fakeDatabase.userCountries.filter(c => c.visited || !onlyVisited)
 );
 
