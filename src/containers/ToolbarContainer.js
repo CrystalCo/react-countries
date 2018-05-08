@@ -1,5 +1,5 @@
 import {connect} from 'react-redux'
-import {addCountryDialogOpened, fetchUserCountries, setCountries, setOnlyVisited} from "../actions"
+import {addCountryDialogOpened, fetchUserCountries, setOnlyVisited} from "../actions"
 import RcToolbar from "../components/RcToolbar";
 import {getOnlyVisited,} from '../reducers';
 

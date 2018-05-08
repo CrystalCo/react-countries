@@ -21,9 +21,10 @@ const requestUserCountries = () => ({
 
 // Thunk middleware version
 export const fetchUserCountries = (onlyVisited)  => (dispatch, getState) => {
-    if (getIsFetching(getState())) {
+    // Race condition protection
+    /*if (getIsFetching(getState())) {
         return Promise.resolve();
-    }
+    }*/
 
     dispatch(requestUserCountries());
 
