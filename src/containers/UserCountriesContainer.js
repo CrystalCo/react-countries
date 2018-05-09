@@ -1,7 +1,7 @@
 import {connect} from 'react-redux'
-import {fetchUserCountries, removeCountry, setMessage, toggleCountry} from "../actions"
+import {fetchUserCountries, removeCountry, toggleCountry} from "../actions"
 import RcList from "../components/RcList";
-import {getIsFetching, getVisibleCountries, getErrorMessage, getOnlyVisited} from '../reducers';
+import {getErrorMessage, getIsFetching, getOnlyVisited, getVisibleCountries} from '../reducers';
 
 const mapStateToProps = state => ({
     countries: getVisibleCountries(state),

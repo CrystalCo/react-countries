@@ -1,5 +1,5 @@
 import * as api from '../api'
-import {getIsFetching, getOnlyVisited} from '../reducers';
+import {/*getIsFetching,*/ getOnlyVisited} from '../reducers';
 
 // Countries
 
