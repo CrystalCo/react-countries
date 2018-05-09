@@ -1,5 +1,5 @@
 import * as api from '../api'
-import {getIsFetching} from '../reducers';
+import {getIsFetching, getOnlyVisited} from '../reducers';
 
 // Countries
 
@@ -59,11 +59,15 @@ export const removeCountry = (code) => (dispatch) =>
         dispatch(setMessage("Country has been deleted"));
     });
 
-// TODO
-export const toggleCountry = code => ({
-    type: 'TOGGLE_COUNTRY',
-    code
-});
+export const toggleCountry = code => (dispatch, getState) =>
+    api.toggleUserCountry(code).then((country) => {
+        dispatch({
+            type: 'TOGGLE_COUNTRY_SUCCESS',
+            country,
+            onlyVisited: getOnlyVisited(getState())
+        });
+        dispatch(setMessage("Country has been updated"));
+    });
 
 // All Countries
 

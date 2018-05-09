@@ -14,11 +14,11 @@ export default function RcToolbar({onDialogOpen, onlyVisited, onOnlyVisitedChang
             <Tooltip title="Only Visited" placement="bottom">
                 <Switch checked={onlyVisited} onChange={(e) => onOnlyVisitedChange(e.target.checked)} color="secondary"/>
             </Tooltip>
-            <Tooltip title="Show Map (WIP)" placement="bottom">
+            {/*<Tooltip title="Show Map (WIP)" placement="bottom">
                 <IconButton color="secondary">
                     <Icon>map</Icon>
                 </IconButton>
-            </Tooltip>
+            </Tooltip>*/}
         </div>
     );
 }

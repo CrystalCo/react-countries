@@ -17,6 +17,15 @@ const ids = (state = [], action) => {
                 ...state.slice(0, index),
                 ...state.slice(index + 1)
             ];
+        case 'TOGGLE_COUNTRY_SUCCESS':
+            let ndx = indexOf(state, action.country.code);
+            if (!action.country.visited && action.onlyVisited) {
+                return [
+                    ...state.slice(0, ndx),
+                    ...state.slice(ndx + 1)
+                ];
+            }
+            return state;
         default:
             return state
     }

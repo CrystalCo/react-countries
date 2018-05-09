@@ -13,11 +13,11 @@ const byId = (state = {}, action) => {
             const newById = {...state};
             delete newById[action.code];
             return newById;
-        case 'TOGGLE_COUNTRY':
-            let c = state[action.code];
+        case 'TOGGLE_COUNTRY_SUCCESS':
+            let c = state[action.country.code];
             return {
                 ...state,
-                [action.code]: {...c, visited: !c.visited},
+                [c.code]: c
             };
         default:
             return state
