@@ -1,26 +1,14 @@
-import findIndex from "lodash/findIndex";
 import keyBy from "lodash/keyBy";
 
 const byId = (state = {}, action) => {
     switch (action.type) {
         case 'FETCH_COUNTRIES_SUCCESS':
             return keyBy(action.userCountries, c => c.code);
-        case 'ADD_COUNTRY':
-            const allCountries = action.allCountries; // TODO - will move from here
-            const countryToAddCode = action.countryToAdd;
-
-            if (countryToAddCode) {
-                let countryIndex = findIndex(allCountries, {'alpha3Code': countryToAddCode.toUpperCase()});
-                let country = allCountries[countryIndex];
-                let newCountry = {
-                    code: country.alpha3Code.toLowerCase(),
-                    name: country.name,
-                    capital: country.capital,
-                    visited: true
-                };
+        case 'ADD_COUNTRY_SUCCESS':
+            if (action.countryToAdd) { // TODO - this check?
                 return {
                     ...state,
-                    [countryToAddCode]: newCountry,
+                    [action.countryToAdd.code]: action.countryToAdd,
                 };
             }
             return state;

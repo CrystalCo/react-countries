@@ -40,16 +40,24 @@ export const fetchUserCountries = (onlyVisited) => (dispatch, getState) => {
     );
 };
 
-export const addCountry = (countryToAdd) => ({
-    type: 'ADD_COUNTRY',
-    countryToAdd
-});
+export const addCountry = (code) => (dispatch) =>
+    api.addUserCountry(code).then(countryToAdd => {
 
+        console.log("U akciji dobio " + countryToAdd);
+
+        dispatch({
+            type: 'ADD_COUNTRY_SUCCESS',
+            countryToAdd
+        });
+    });
+
+// TODO
 export const removeCountry = code => ({
     type: 'REMOVE_COUNTRY',
     code
 });
 
+// TODO
 export const toggleCountry = code => ({
     type: 'TOGGLE_COUNTRY',
     code
