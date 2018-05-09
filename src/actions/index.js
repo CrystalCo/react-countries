@@ -50,11 +50,14 @@ export const addCountry = (code) => (dispatch) =>
         dispatch(setMessage("Country has been added"));
     });
 
-// TODO
-export const removeCountry = code => ({
-    type: 'REMOVE_COUNTRY',
-    code
-});
+export const removeCountry = (code) => (dispatch) =>
+    api.removeUserCountry(code).then(() => {
+        dispatch({
+            type: 'REMOVE_COUNTRY_SUCCESS',
+            code
+        });
+        dispatch(setMessage("Country has been deleted"));
+    });
 
 // TODO
 export const toggleCountry = code => ({

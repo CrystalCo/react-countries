@@ -11,9 +11,7 @@ const ids = (state = [], action) => {
             newAllIds.push(action.countryToAdd.code);
             newAllIds = orderBy(newAllIds, [], ['asc']);
             return newAllIds;
-        //dispatch(setMessage("Country has been added"));
-        //dispatch(addCountryDialogOpened(false))
-        case 'REMOVE_COUNTRY':
+        case 'REMOVE_COUNTRY_SUCCESS':
             let index = indexOf(state, action.code);
             return [
                 ...state.slice(0, index),

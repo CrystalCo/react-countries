@@ -12,11 +12,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     onCountryVisitedChange: code => dispatch(toggleCountry(code)),
-    onCountryDeleted: code => {
-        dispatch(removeCountry(code));
-        // TODO - how to show message when first dispatch is done (Ajax call finished for example)
-        dispatch(setMessage("Country has been deleted"))
-    },
+    onCountryDeleted: code => dispatch(removeCountry(code)),
     fetchUserCountries: (onlyVisited) => dispatch(fetchUserCountries(onlyVisited))
 });
 

@@ -1,6 +1,7 @@
 //import uuid from 'uuid';
 import orderBy from "lodash/orderBy";
 import findIndex from "lodash/findIndex";
+import remove from "lodash/remove";
 
 const REST_COUNTRIES_API_URL = "https://restcountries.eu/rest/v2/";
 
@@ -53,17 +54,11 @@ export const addUserCountry = (code) =>
         })
     ).then(newCountry => newCountry);
 
-
-// TODO
 export const removeUserCountry = (code) =>
     delay(500).then(() => {
-        const c = {
-            //id: v4(),
-            //text,
-            completed: false,
-        };
-        fakeDatabase.userCountries.push(c);
-        return c;
+        remove(fakeDatabase.userCountries, function (c) {
+            return c.code === code;
+        });
     });
 
 // TODO

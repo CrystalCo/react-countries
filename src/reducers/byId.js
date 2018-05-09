@@ -9,7 +9,7 @@ const byId = (state = {}, action) => {
                 ...state,
                 [action.countryToAdd.code]: action.countryToAdd,
             };
-        case 'REMOVE_COUNTRY':
+        case 'REMOVE_COUNTRY_SUCCESS':
             const newById = {...state};
             delete newById[action.code];
             return newById;
