@@ -1,5 +1,5 @@
 const ui = (state = {
-    onlyVisited: false,
+    onlyVisited: true,
     addCountryDialogOpened: false,
     countryToAdd: '',
     msgOpen: false,
@@ -24,3 +24,9 @@ const ui = (state = {
 };
 
 export default ui;
+
+export const getOnlyVisited = (state) => state.onlyVisited;
+export const getAddCountryDialogOpened = (state) => state.addCountryDialogOpened;
+export const getCountryToAdd = (state) => state.countryToAdd;
+export const getMsgOpen = (state) => state.msgOpen;
+export const getMsg = (state) => state.msg;

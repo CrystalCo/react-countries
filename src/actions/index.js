@@ -1,32 +1,82 @@
+import * as api from '../api'
+import {getIsFetching, getOnlyVisited} from '../reducers';
+
 // Countries
 
-export const setCountries = userCountries => ({
-    type: 'SET_COUNTRIES',
-    userCountries
-});
+// Promise middleware version
+/*export const fetchUserCountries = (onlyVisited) =>
+    api.fetchUserCountries(onlyVisited).then(
+        userCountries => {
+            type: 'FETCH_COUNTRIES_SUCCESS',
+            userCountries
+        },
+        error => console.error(error)
+    );*/
 
-export const addCountry = (countryToAdd, allCountries) => ({
-    type: 'ADD_COUNTRY',
-    countryToAdd,
-    allCountries
-});
+// Thunk middleware version
+export const fetchUserCountries = (onlyVisited) => (dispatch, getState) => {
+    // Race condition protection
+    /*if (getIsFetching(getState())) {
+        return Promise.resolve();
+    }*/
 
-export const removeCountry = code => ({
-    type: 'REMOVE_COUNTRY',
-    code
-});
+    dispatch({
+        type: 'FETCH_COUNTRIES_REQUEST'
+    });
 
-export const toggleCountry = code => ({
-    type: 'TOGGLE_COUNTRY',
-    code
-});
+    return api.fetchUserCountries(onlyVisited).then(
+        userCountries => dispatch({
+            type: 'FETCH_COUNTRIES_SUCCESS',
+            userCountries
+        }),
+        error => {
+            console.error(error);
+            dispatch({
+                type: 'FETCH_COUNTRIES_FAILURE',
+                onlyVisited,
+                message: error.message || 'Something went wrong.'
+            });
+        }
+    );
+};
+
+export const addCountry = (code) => (dispatch) =>
+    api.addUserCountry(code).then(countryToAdd => {
+        dispatch({
+            type: 'ADD_COUNTRY_SUCCESS',
+            countryToAdd
+        });
+        dispatch(addCountryDialogOpened(false));
+        dispatch(setMessage("Country has been added"));
+    });
+
+export const removeCountry = (code) => (dispatch) =>
+    api.removeUserCountry(code).then(() => {
+        dispatch({
+            type: 'REMOVE_COUNTRY_SUCCESS',
+            code
+        });
+        dispatch(setMessage("Country has been deleted"));
+    });
+
+export const toggleCountry = code => (dispatch, getState) =>
+    api.toggleUserCountry(code).then((country) => {
+        dispatch({
+            type: 'TOGGLE_COUNTRY_SUCCESS',
+            country,
+            onlyVisited: getOnlyVisited(getState())
+        });
+        dispatch(setMessage("Country has been updated"));
+    });
 
 // All Countries
 
-export const setAllCountries = allCountries => ({
-    type: 'SET_ALL_COUNTRIES',
+const setAllCountriesSuggestion = allCountries => ({
+    type: 'SET_ALL_COUNTRIES_SUGGESTION',
     allCountries
 });
+
+export const fetchCountriesSuggestion = () => api.fetchAllCountries().then(allCountries => setAllCountriesSuggestion(allCountries));
 
 // UI State
 

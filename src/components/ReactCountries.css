@@ -53,3 +53,16 @@
     right: -26px;
     top: 45px;
 }
+
+.loading {
+    /* Center it */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%)
+}
+
+.RC-error {
+    margin-left: 10px;
+}

@@ -9,11 +9,14 @@ export default function RcAddCountryDialog(props) {
             <Dialog open={props.open} onClose={props.onDialogClose} fullWidth={true}>
                 <DialogTitle id="form-dialog-title">Add Country</DialogTitle>
                 <DialogContent>
-                    <ReactSelect suggestions={props.suggestions} placeholder="Search a country" autofocus={true} value={props.countryToAdd} onChange={props.onCountryToAddChanged}/>
+                    <ReactSelect suggestions={props.suggestions} placeholder="Search a country" autofocus={true} value={props.countryCodeToAdd} onChange={props.onCountryToAddChanged}/>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={props.onDialogClose} color="primary">Cancel</Button>
-                    <Button onClick={() => props.onCountryAdd(props.countryToAdd, props.allCountries)} color="primary">Add</Button>
+                    <Button onClick={() => {
+                        if (props.countryCodeToAdd && props.countryIds.indexOf(props.countryCodeToAdd) === -1)
+                            props.onCountryAdd(props.countryCodeToAdd)
+                    }} color="primary">Add</Button>
                 </DialogActions>
             </Dialog>
         </div>

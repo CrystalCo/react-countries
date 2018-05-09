@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux'
-import CountryUtil from '../utils/CountryUtil'
 import ReactCountries from "../components/ReactCountries";
-import {setAllCountries, setCountries, setMessage} from "../actions"
+import {fetchCountriesSuggestion, fetchUserCountries, setMessage} from "../actions"
+import {getMsg, getMsgOpen, getOnlyVisited} from '../reducers'
 
 class App extends Component {
     /*constructor(props) {
@@ -10,10 +10,13 @@ class App extends Component {
     }*/
 
     componentDidMount() {
-        // Fetch all countries
-        this.props.fetchAllCountries();
-        // "Fetching" user's countries from "DB"
-        this.props.fetchUserCountries();
+        this.fetchData();
+    }
+
+    fetchData() {
+        const {onlyVisited, getCountriesSuggestion, getUserCountries} = this.props;
+        getCountriesSuggestion();
+        getUserCountries(onlyVisited);
     }
 
     render() {
@@ -25,25 +28,15 @@ class App extends Component {
 
 const mapStateToProps = state => {
     return {
-        msg: state.ui.msg,
-        msgOpen: state.ui.msgOpen
+        msg: getMsg(state),
+        msgOpen: getMsgOpen(state),
+        onlyVisited: getOnlyVisited(state)
     };
 };
 
 const mapDispatchToProps = dispatch => ({
-    fetchAllCountries: () => {
-        CountryUtil.getAllCountries().then(
-            allCountriesJson => dispatch(setAllCountries(allCountriesJson)),
-            error => console.error(error)
-        );
-    },
-    fetchUserCountries: () => {
-        dispatch(setCountries([
-            {code: 'bra', name: 'Brazil', capital: 'Brazilia', visited: false},
-            {code: 'col', name: 'Colombia', capital: 'Bogota', visited: true},
-            {code: 'srb', name: 'Serbia', capital: 'Belgrade', visited: false}
-        ]))
-    },
+    getCountriesSuggestion: () => dispatch(fetchCountriesSuggestion()),
+    getUserCountries: (onlyVisited) => dispatch(fetchUserCountries(onlyVisited)),
     handleMsgClose: (event, reason) => {
         if (reason === 'clickaway') {
             return;
@@ -53,4 +46,3 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)
-
