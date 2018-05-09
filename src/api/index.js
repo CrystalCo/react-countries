@@ -29,9 +29,9 @@ export const fetchAllCountries = () => fakeDatabase.allCountries.length === 0 ?
     Promise.resolve(fakeDatabase.allCountries);
 
 export const fetchUserCountries = (onlyVisited) => delay(500).then(() => {
-        /*if (Math.random() > 0.5) {
+        if (Math.random() > 0.5) {
             throw new Error('Boom!');
-        }*/
+        }
 
         return orderBy(fakeDatabase.userCountries, ['name'], ['asc']).filter(c => c.visited || !onlyVisited);
     }
