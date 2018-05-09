@@ -10,6 +10,7 @@ export default combineReducers({
 })
 
 // Countries
+export const getUserCountriesCode = (state) => fromCountries.getUserCountriesCode(state.countries);
 export const getVisibleCountries = (state) => fromCountries.getVisibleCountries(state.countries);
 export const getIsFetching = (state) => fromCountries.getIsFetching(state.countries);
 export const getErrorMessage = (state) => fromCountries.getErrorMessage(state.countries);

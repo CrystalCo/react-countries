@@ -1,6 +1,5 @@
 import {combineReducers} from 'redux';
 import indexOf from "lodash/indexOf";
-import findIndex from "lodash/findIndex";
 import orderBy from "lodash/orderBy";
 
 const ids = (state = [], action) => {
@@ -8,20 +7,12 @@ const ids = (state = [], action) => {
         case 'FETCH_COUNTRIES_SUCCESS':
             return action.userCountries.map(c => c.code);
         case 'ADD_COUNTRY_SUCCESS':
-            if (action.countryToAdd) { // TODO - check?
-                let addCountry = findIndex(state, action.countryToAdd.code) === -1;
-
-                if (addCountry) {
-                    let newAllIds = [...state];
-                    newAllIds.push(action.countryToAdd.code);
-                    newAllIds = orderBy(newAllIds, [], ['asc']);
-                    return newAllIds;
-                    //dispatch(setMessage("Country has been added"));
-                }
-
-                //dispatch(addCountryDialogOpened(false))
-            }
-            return state;
+            let newAllIds = [...state];
+            newAllIds.push(action.countryToAdd.code);
+            newAllIds = orderBy(newAllIds, [], ['asc']);
+            return newAllIds;
+        //dispatch(setMessage("Country has been added"));
+        //dispatch(addCountryDialogOpened(false))
         case 'REMOVE_COUNTRY':
             let index = indexOf(state, action.code);
             return [

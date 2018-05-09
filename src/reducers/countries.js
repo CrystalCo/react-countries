@@ -9,8 +9,12 @@ const countries = combineReducers({
 
 export default countries;
 
+export const getUserCountriesCode = (state) => {
+    return fromList.getIds(state.list);
+};
+
 export const getVisibleCountries = (state) => {
-    const ids = fromList.getIds(state.list);
+    const ids = getUserCountriesCode(state);
     return ids.map(id => fromById.getCountry(state.byId, id))
 };
 

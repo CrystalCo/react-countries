@@ -8,12 +8,13 @@ import {
     toggleCountry
 } from "../actions"
 import RcAddCountryDialog from "../components/RcAddCountryDialog";
-import {getAddCountryDialogOpened, getCountryToAdd, getSuggestions} from '../reducers'
+import {getAddCountryDialogOpened, getCountryToAdd, getSuggestions, getUserCountriesCode} from '../reducers'
 
 const mapStateToProps = state => ({
     open: getAddCountryDialogOpened(state),
-    countryToAdd: getCountryToAdd(state),
-    suggestions: getSuggestions(state)
+    countryCodeToAdd: getCountryToAdd(state),
+    suggestions: getSuggestions(state),
+    countryIds: getUserCountriesCode(state)
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -29,14 +30,7 @@ const mapDispatchToProps = dispatch => ({
             dispatch(countryToAddChanged(country.toLowerCase()))
         }
     },
-    onCountryAdd: (code) => {
-        dispatch(addCountry(code));
-        // TODO - how to show message only in case something was really selected before Add? Need info from reducer..
-        //dispatch(setMessage("Country has been added"));
-
-        // TODO - same problem, now I always close, but how to close when first dispatch is done and only if something added
-        dispatch(addCountryDialogOpened(false))
-    }
+    onCountryAdd: (code) => dispatch(addCountry(code))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RcAddCountryDialog)

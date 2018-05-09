@@ -42,13 +42,12 @@ export const fetchUserCountries = (onlyVisited) => (dispatch, getState) => {
 
 export const addCountry = (code) => (dispatch) =>
     api.addUserCountry(code).then(countryToAdd => {
-
-        console.log("U akciji dobio " + countryToAdd);
-
         dispatch({
             type: 'ADD_COUNTRY_SUCCESS',
             countryToAdd
         });
+        dispatch(addCountryDialogOpened(false));
+        dispatch(setMessage("Country has been added"));
     });
 
 // TODO
