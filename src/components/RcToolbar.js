@@ -1,9 +1,9 @@
 import React from 'react';
-import Button from 'material-ui/Button';
-import {Icon} from "material-ui";
-import Switch from 'material-ui/Switch';
-//import IconButton from 'material-ui/IconButton';
-import Tooltip from 'material-ui/Tooltip';
+import Button from '@material-ui/core/Button';
+import {Icon} from "@material-ui/core";
+import Switch from '@material-ui/core/Switch';
+//import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
 
 export default function RcToolbar({onDialogOpen, onlyVisited, onOnlyVisitedChange}) {
     return (

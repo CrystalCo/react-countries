@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './containers/App';
 import {Provider} from 'react-redux'
-import CssBaseline from 'material-ui/CssBaseline';
-import {createMuiTheme, MuiThemeProvider} from 'material-ui/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import {createMuiTheme, MuiThemeProvider} from '@material-ui/core/styles';
 import configureStore from './configureStore';
 
 ReactDOM.render(

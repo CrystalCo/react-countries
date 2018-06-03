@@ -1,10 +1,12 @@
 import React, {Fragment} from 'react';
-import {Icon} from "material-ui";
-import IconButton from 'material-ui/IconButton';
-import Tooltip from 'material-ui/Tooltip';
-import {ListItem, ListItemSecondaryAction, ListItemText} from 'material-ui/List';
-import Checkbox from 'material-ui/Checkbox';
-import Divider from 'material-ui/Divider';
+import {Icon} from "@material-ui/core";
+import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import ListItemText from '@material-ui/core/ListItemText';
+import Checkbox from '@material-ui/core/Checkbox';
+import Divider from '@material-ui/core/Divider';
 
 export default function RcRow({code, name, capital, visited, onCountryVisitedChange, onCountryDeleted}) {
     return (
