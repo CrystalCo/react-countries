@@ -15,7 +15,7 @@ describe('Toolbar', () => {
 
     it('has add icon', () => {
         wrapper = mount(<RcToolbar/>); // notice the `mount`
-        expect(wrapper.find('button').find('.material-icons').text()).toBe("addX");
+        expect(wrapper.find('button').find('.material-icons').text()).toBe("add");
     });
 
     it('only visited countries starts on', () => {
