@@ -40,12 +40,14 @@ export const fetchUserCountries = (onlyVisited) => (dispatch, getState) => {
     );
 };
 
+export const addCountrySuccess = countryToAdd => ({
+    type: 'ADD_COUNTRY_SUCCESS',
+    countryToAdd
+});
+
 export const addCountry = (code) => (dispatch) =>
     api.addUserCountry(code).then(countryToAdd => {
-        dispatch({
-            type: 'ADD_COUNTRY_SUCCESS',
-            countryToAdd
-        });
+        dispatch(addCountrySuccess(countryToAdd));
         dispatch(addCountryDialogOpened(false));
         dispatch(setMessage("Country has been added"));
     });

@@ -9,7 +9,7 @@ import ReactSelect from './ReactSelect'
 export default function RcAddCountryDialog(props) {
     return (
         <div>
-            <Dialog open={props.open} onClose={props.onDialogClose} fullWidth={true}>
+            <Dialog id='addCountryDialog' open={props.open} onClose={props.onDialogClose} fullWidth={true}>
                 <DialogTitle id="form-dialog-title">Add Country</DialogTitle>
                 <DialogContent>
                     <ReactSelect suggestions={props.suggestions} placeholder="Search a country" autofocus={true} value={props.countryCodeToAdd} onChange={props.onCountryToAddChanged}/>
