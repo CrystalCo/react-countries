@@ -5,7 +5,7 @@ import {Provider} from 'react-redux'
 import CssBaseline from '@material-ui/core/CssBaseline';
 import {createMuiTheme, MuiThemeProvider} from '@material-ui/core/styles';
 import configureStore from './configureStore';
-import {BrowserRouter, HashRouter} from 'react-router-dom'
+import {BrowserRouter/*, HashRouter*/} from 'react-router-dom'
 
 ReactDOM.render(
     <BrowserRouter>
