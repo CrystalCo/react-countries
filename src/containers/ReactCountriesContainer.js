@@ -4,7 +4,7 @@ import ReactCountries from "../components/ReactCountries";
 import {fetchCountriesSuggestion, fetchUserCountries, setMessage} from "../actions"
 import {getMsg, getMsgOpen, getOnlyVisited} from '../reducers'
 
-class App extends Component {
+class ReactCountriesContainer extends Component {
     /*constructor(props) {
         super(props);
     }*/
@@ -45,4 +45,4 @@ const mapDispatchToProps = dispatch => ({
     }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default connect(mapStateToProps, mapDispatchToProps)(ReactCountriesContainer)

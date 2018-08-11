@@ -1,24 +1,17 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import './ReactCountries.css';
 import RotatingEarth from './RotatingEarth';
 import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
 import Snackbar from '@material-ui/core/Snackbar';
 import CloseIcon from '@material-ui/icons/Close';
-import logo from '../img/logo.svg';
-import GitHubRibbon from '../components/GitHubRibbon';
 import ToolbarContainer from "../containers/ToolbarContainer";
 import UserCountriesContainer from "../containers/UserCountriesContainer";
 import AddCountryContainer from "../containers/AddCountryContainer";
 
 export default function ReactCountries({msg, msgOpen, handleMsgClose}) {
     return (
-        <div>
-            <header className="RC-header">
-                <img src={logo} className="RC-logo" alt="logo"/>
-                <h1 className="RC-title">Welcome to React Countries</h1>
-                <GitHubRibbon/>
-            </header>
+        <Fragment>
             <Paper className="RC" elevation={4}>
                 <RotatingEarth/>
                 <ToolbarContainer/>
@@ -37,6 +30,6 @@ export default function ReactCountries({msg, msgOpen, handleMsgClose}) {
                     </IconButton>,
                 ]}
             />
-        </div>
+        </Fragment>
     );
 }
