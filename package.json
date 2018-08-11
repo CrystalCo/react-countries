@@ -17,7 +17,8 @@
     "redux-promise": "^0.6.0",
     "redux-thunk": "^2.3.0",
     "source-map-explorer": "^1.5.0",
-    "uuid": "^3.2.1"
+    "uuid": "^3.2.1",
+    "react-router": "latest"
   },
   "devDependencies": {
     "@types/jasmine": "^2.8.8",

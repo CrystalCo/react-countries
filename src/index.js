@@ -8,7 +8,7 @@ import configureStore from './configureStore';
 import {BrowserRouter, HashRouter} from 'react-router-dom'
 
 ReactDOM.render(
-    <HashRouter>
+    <BrowserRouter>
         <Provider store={configureStore()}>
             <MuiThemeProvider theme={createMuiTheme({
                 palette: {
@@ -30,6 +30,6 @@ ReactDOM.render(
                 <App/>
             </MuiThemeProvider>
         </Provider>
-    </HashRouter>,
+    </BrowserRouter>,
     document.getElementById('root')
 );
