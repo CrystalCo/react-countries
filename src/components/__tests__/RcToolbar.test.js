@@ -5,7 +5,7 @@ import Adapter from 'enzyme-adapter-react-16';
 
 configure({adapter: new Adapter()});
 
-describe('Toolbar', () => {
+describe('RcToolbar', () => {
     let wrapper;
 
     it('rendered without exploding', () => {

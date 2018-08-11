@@ -7,13 +7,17 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
 import Divider from '@material-ui/core/Divider';
+import {Link} from "react-router-dom";
 
 export default function RcRow({code, name, capital, visited, onCountryVisitedChange, onCountryDeleted}) {
     return (
         <Fragment>
             <ListItem>
-                <img src={`https://restcountries.eu/data/${code}.svg`} alt={code} className="RC-flag"/>
+                <Link to={`/country/${code}`}>
+                    <img src={`https://restcountries.eu/data/${code}.svg`} alt={code} className="RC-flag"/>
+                </Link>
                 <ListItemText primary={name} secondary={capital}/>
+
                 <ListItemSecondaryAction>
                     <Tooltip title="Visited" placement="left">
                         <Checkbox checked={visited} onChange={(e) => onCountryVisitedChange(code, e.target.checked)}/>
@@ -23,6 +27,7 @@ export default function RcRow({code, name, capital, visited, onCountryVisitedCha
                     </IconButton>
                 </ListItemSecondaryAction>
             </ListItem>
+
             <Divider/>
         </Fragment>
     );
